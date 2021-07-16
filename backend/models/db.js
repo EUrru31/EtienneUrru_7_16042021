@@ -5,11 +5,11 @@ const dbConfig = require("../config/db.config.js");
 //     host: dbConfig.HOST,
 //     user: dbConfig.USER,
 //     password: dbConfig.PASSWORD,
-//     database: dbConfig.DB,
+//     database: dbConfig.DATABASE,
 // });
 
 const connexion = mysql.createConnection(
-    "mysql://student:E44fi88e+@localhost:3306/groupomania"
+    "mysql://admin:E44fi88e+@localhost:3306/groupomania"
 );
 connexion.connect((error) => {
     if (error) {
