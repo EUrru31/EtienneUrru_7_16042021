@@ -5,11 +5,11 @@ const User = function (user) {
     this.email = user.email;
     this.name = user.name;
     this.lastName = user.lastName;
-    this.active = user.active;
+    this.admin = user.admin;
 };
 
 User.create = (newUser, result) => {
-    sql.query("INSERT INTO user SET ?", newUser, (err, res) => {
+    sql.query("INSERT INTO users SET ?", newUser, (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(err, null);
@@ -41,7 +41,7 @@ User.findById = (userId, result) => {
 };
 
 User.getAll = (result) => {
-    sql.query("SELECT * FROM user", (err, res) => {
+    sql.query("SELECT * FROM users", (err, res) => {
         if (err) {
             console.log("error: ", err);
             result(null, err);
@@ -55,8 +55,8 @@ User.getAll = (result) => {
 
 User.updateById = (id, customer, result) => {
     sql.query(
-        "UPDATE users SET email = ?, name = ?, active = ? WHERE id = ?",
-        [user.email, user.name, user.lastName, user.active, id],
+        "UPDATE users SET email = ?, name = ?, admin = ? WHERE id = ?",
+        [user.email, user.name, user.lastName, user.admin, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
