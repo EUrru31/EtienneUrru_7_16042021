@@ -1,31 +1,29 @@
-// const express = require("express");
-// const router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-// const userCtrl = require("../controllers/user");
+const userCtrl = require("../controllers/users");
 
-// router.post("/signup", userCtrl.signup);
-// router.post("/login", userCtrl.login);
+router.post("/signup", userCtrl.signup);
+router.post("/login", userCtrl.login);
 
-// module.exports = router;
+const users = require("../controllers/users.js");
 
-module.exports = (app) => {
-    const users = require("../controllers/users.js");
+// Create a new User
+router.post("/users", userCtrl.create);
 
-    // Create a new User
-    app.post("/users", users.create);
+// Retrieve all Users
+router.get("/users", userCtrl.findAll);
 
-    // Retrieve all Users
-    app.get("/users", users.findAll);
+// Retrieve a single User with userId
+router.get("/users/:userId", userCtrl.findOne);
 
-    // Retrieve a single User with userId
-    app.get("/users/:userId", users.findOne);
+// Update a User with userId
+router.put("/users/:userId", userCtrl.update);
 
-    // Update a User with userId
-    app.put("/users/:userId", users.update);
+// Delete a User with userId
+router.delete("/users/:userId", userCtrl.delete);
+userCtrl;
+// Create a new User
+router.delete("/users", userCtrl.deleteAll);
 
-    // Delete a User with userId
-    app.delete("/users/:userId", users.delete);
-
-    // Create a new User
-    app.delete("/users", users.deleteAll);
-};
+module.exports = router;
