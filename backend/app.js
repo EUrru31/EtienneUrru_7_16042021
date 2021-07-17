@@ -4,7 +4,7 @@ const app = express();
 const path = require("path");
 
 //const saucesRoutes = require("./routes/sauces");
-const userRoutes = require("./routes/user");
+const userRoutes = require("./routes/users");
 require("dotenv").config();
 
 app.use(helmet());
