@@ -55,8 +55,8 @@ Post.getAll = (result) => {
 
 Post.updateById = (id, customer, result) => {
     sql.query(
-        "UPDATE posts SET email = ?, name = ?, admin = ? WHERE id = ?",
-        [post.email, post.name, post.lastName, post.admin, id],
+        "UPDATE posts SET .... = ?, .... = ?, .... = ? WHERE id = ?",
+        // [post.   , post.   , post.   ,],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
