@@ -22,7 +22,7 @@ router.put("/users/:userId", userCtrl.update);
 
 // Delete a User with userId
 router.delete("/users/:userId", userCtrl.delete);
-userCtrl;
+
 // Create a new User
 router.delete("/users", userCtrl.deleteAll);
 

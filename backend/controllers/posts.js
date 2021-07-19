@@ -1,138 +1,147 @@
-// Importation modèle de sauce
-const Sauce = require("../models/sauces");
-const fs = require("fs");
+const Post = require("../models/customer.model.js");
 
-// Controle des routes de l'application
+// Create and Save a new Post
+exports.create = (req, res) => {
+    // Validate request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!",
+        });
+    }
 
-// Création de sauce
-exports.createSauce = (req, res, next) => {
-    const saucesObject = JSON.parse(req.body.sauce);
-    const sauce = new Sauce({
-        ...saucesObject,
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${
-            req.file.filename
-        }`,
-        likes: 0,
-        dislikes: 0,
-        usersLiked: [],
-        usersDisliked: [],
+    // Create a Post
+    const post = new Post({
+        email: req.body.email,
+        name: req.body.name,
+        active: req.body.active,
     });
-    sauce
-        .save()
-        .then(() => res.status(201).json({ message: "Objet enregistré !" }))
-        .catch((error) => res.status(400).json({ error }));
+
+    // Save Post in the database
+    Post.create(post, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message ||
+                    "Some error occurred while creating the Post.",
+            });
+        else res.send(data);
+    });
 };
 
-//Récupérer une Sauce
-exports.getOneSauce = (req, res, next) => {
-    Sauce.findOne({
-        _id: req.params.id,
-    })
-        .then((thing) => {
-            res.status(200).json(thing);
-        })
-        .catch((error) => {
-            res.status(404).json({
-                error: error,
+// Retrieve all Posts from the database.
+exports.findAll = (req, res) => {
+    Post.getAll((err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message ||
+                    "Some error occurred while retrieving posts.",
             });
+        else res.send(data);
+    });
+};
+
+// Find a single Post with a postId
+exports.findOne = (req, res) => {
+    Post.findById(req.params.postId, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found Post with id ${req.params.postId}.`,
+                });
+            } else {
+                res.status(500).send({
+                    message:
+                        "Error retrieving Post with id " + req.params.postId,
+                });
+            }
+        } else res.send(data);
+    });
+};
+
+// Update a Post identified by the postId in the request
+exports.update = (req, res) => {
+    // Validate Request
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!",
         });
+    }
+
+    Post.updateById(req.params.postId, new Post(req.body), (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found Post with id ${req.params.postId}.`,
+                });
+            } else {
+                res.status(500).send({
+                    message: "Error updating Post with id " + req.params.postId,
+                });
+            }
+        } else res.send(data);
+    });
+};
+// Delete a Post with the specified postId in the request
+exports.delete = (req, res) => {
+    Post.remove(req.params.postId, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `Not found Customer with id ${req.params.postId}.`,
+                });
+            } else {
+                res.status(500).send({
+                    message:
+                        "Could not delete Customer with id " +
+                        req.params.postId,
+                });
+            }
+        } else res.send({ message: `Customer was deleted successfully!` });
+    });
 };
 
-// Modifier une sauce
-exports.modifySauce = (req, res, next) => {
-    const sauceObjet = req.file
-        ? {
-              ...JSON.parse(req.body.sauce),
-              imageUrl: `${req.protocol}://${req.get("host")}/images/${
-                  req.file.filename
-              }`,
-          }
-        : { ...req.body };
-    Sauce.updateOne(
-        { _id: req.params.id },
-        { ...sauceObjet, _id: req.params.id }
-    )
-        .then(() => res.status(200).json({ message: "Objet modifié !" }))
-        .catch((error) => res.status(400).json({ error }));
-};
-
-// Supprimer une sauce
-exports.deleteSauce = (req, res, next) => {
-    Sauce.findOne({ _id: req.params.id })
-        .then((sauce) => {
-            const filename = sauce.imageUrl.split("/images/")[1];
-            fs.unlink(`images/${filename}`, () => {
-                Sauce.deleteOne({ _id: req.params.id })
-                    .then(() =>
-                        res.status(200).json({ message: "Objet supprimé !" })
-                    )
-                    .catch((error) => res.status(400).json({ error }));
+// Delete all Posts from the database.
+exports.deleteAll = (req, res) => {
+    Post.removeAll((err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message ||
+                    "Some error occurred while removing all Posts.",
             });
-        })
-        .catch((error) => res.status(500).json({ error }));
+        else res.send({ message: `All Posts were deleted successfully!` });
+    });
 };
-
-// Récupérer toutes les sauces
-exports.getAllSauces = (req, res, next) => {
-    Sauce.find()
-        .then((sauces) => {
-            res.status(200).json(sauces);
-        })
-        .catch((error) => {
-            res.status(400).json({
-                error: error,
-            });
-        });
-};
-
-// Like Dislike des sauces
-exports.likeDislike = async (req, res, next) => {
+// Like des postes
+exports.like = async (req, res, next) => {
     const like = req.body.like;
-    const sauceId = req.params.id;
+    const postId = req.params.id;
     const userId = req.body.userId;
-    const sauce = await Sauce.findOne({
+    const post = await Post.findOne({
         _id: req.params.id,
     });
     console.log(req.body);
     if (like === 1) {
-        await likeSauce(sauce, userId);
+        await likePost(post, userId);
     }
     if (like === 0) {
-        await removeLikeDislike(sauce, userId);
-    }
-    if (like === -1) {
-        await dislikeSauce(sauce, userId);
+        await removeLike(post, userId);
     }
     res.status(200).json({});
 };
 
-async function dislikeSauce(sauce, userId) {
-    if (sauce.usersDisliked.includes(userId)) return;
-    const updateOperation = {
-        $push: { usersDisliked: userId },
-        $inc: { dislikes: 1 },
-    };
-    if (sauce.usersLiked.includes(userId)) {
-        updateOperation["$pull"] = { usersLiked: userId };
-        updateOperation["$inc"].likes = -1;
-    }
-    await Sauce.updateOne({ _id: sauce._id }, updateOperation);
-}
-
-async function removeLikeDislike(sauce, userId) {
+async function removeLike(post, userId) {
     const updateOperation = {};
-    if (sauce.usersLiked.includes(userId)) {
+    if (post.usersLiked.includes(userId)) {
         updateOperation["$pull"] = { usersLiked: userId };
         updateOperation["$inc"] = { likes: -1 };
     }
-    if (sauce.usersDisliked.includes(userId)) {
-        updateOperation["$pull"] = { usersDisliked: userId };
-        updateOperation["$inc"] = { dislikes: -1 };
-    }
-    await Sauce.updateOne({ _id: sauce._id }, updateOperation);
+
+    await Post.updateOne({ _id: post._id }, updateOperation);
 }
 
-async function likeSauce(sauce, userId) {
+async function likePost(sauce, userId) {
     if (sauce.usersLiked.includes(userId)) return;
     const updateOperation = {
         $push: { usersLiked: userId },
@@ -142,5 +151,5 @@ async function likeSauce(sauce, userId) {
         updateOperation["$pull"] = { usersDisliked: userId };
         updateOperation["$inc"].dislikes = -1;
     }
-    await Sauce.updateOne({ _id: sauce._id }, updateOperation);
+    await Post.updateOne({ _id: post._id }, updateOperation);
 }
