@@ -5,7 +5,7 @@ const Comment = function (comment) {
     this.title = comment.title;
     this.text = comment.text;
     this.user_id = comment.user_id;
-    this.post_id = comment.post_id;
+    this.posts_id = comment.posts_id;
 };
 
 Comment.create = (newComment, result) => {
