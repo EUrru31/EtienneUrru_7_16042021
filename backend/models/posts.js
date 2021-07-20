@@ -2,10 +2,9 @@ const sql = require("./db.js");
 
 // constructor
 const Post = function (post) {
-    this.email = post.email;
-    this.name = post.name;
-    this.lastName = post.lastName;
-    this.admin = post.admin;
+    this.title = post.title;
+    this.text = post.text;
+    this.user_id = post.user_id;
 };
 
 Post.create = (newPost, result) => {
@@ -53,10 +52,10 @@ Post.getAll = (result) => {
     });
 };
 
-Post.updateById = (id, customer, result) => {
+Post.updateById = (id, title, text, result) => {
     sql.query(
-        "UPDATE posts SET .... = ?, .... = ?, .... = ? WHERE id = ?",
-        // [post.   , post.   , post.   ,],
+        "UPDATE posts SET title = ?, text = ? WHERE id = ?",
+        [title, text, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

@@ -3,27 +3,24 @@ const router = express.Router();
 
 const postCtrl = require("../controllers/posts");
 
-router.post("/signup", postCtrl.signup);
-router.post("/login", postCtrl.login);
-
 const posts = require("../controllers/posts.js");
 
 // Create a new Post
-router.post("/posts", postCtrl.create);
+router.post("/", postCtrl.create);
 
 // Retrieve all Posts
-router.get("/posts", postCtrl.findAll);
+router.get("/", postCtrl.findAll);
 
 // Retrieve a single Post with postId
-router.get("/posts/:postId", postCtrl.findOne);
+router.get("/:postId", postCtrl.findOne);
 
 // Update a Post with postId
-router.put("Post/posts/:postId", postCtrl.update);
+router.put("/:postId", postCtrl.update);
 
 // Delete a Post with postId
-router.delete("/posts/:postId", postCtrl.delete);
+router.delete("/:postId", postCtrl.delete);
 
 // Create a new Post
-router.delete("/posts", postCtrl.deleteAll);
+router.delete("/", postCtrl.deleteAll);
 
 module.exports = router;

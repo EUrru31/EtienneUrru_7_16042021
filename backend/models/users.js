@@ -1,11 +1,12 @@
 const sql = require("./db.js");
 
 // constructor
-const User = function (user) {
-    this.email = user.email;
-    this.name = user.name;
-    this.lastName = user.lastName;
-    this.admin = user.admin;
+const User = function (users) {
+    this.email = users.email;
+    this.nom = users.nom;
+    this.prenom = users.prenom;
+    this.admin = users.admin;
+    this.password = users.password;
 };
 
 User.create = (newUser, result) => {
@@ -53,10 +54,10 @@ User.getAll = (result) => {
     });
 };
 
-User.updateById = (id, customer, result) => {
+User.updateById = (id, nom, prenom, email, admin, password, result) => {
     sql.query(
-        "UPDATE users SET email = ?, name = ?, admin = ? WHERE id = ?",
-        [user.email, user.name, user.lastName, user.admin, id],
+        "UPDATE users SET nom = ?, prenom = ?, email = ?, admin = ?, password = ? WHERE id = ?",
+        [user.nom, user.prenom, user.email, user.admin, user.password, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

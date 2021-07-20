@@ -1,4 +1,4 @@
-const Post = require("../models/customer.model.js");
+const Post = require("../models/posts.js");
 
 // Create and Save a new Post
 exports.create = (req, res) => {
@@ -11,9 +11,9 @@ exports.create = (req, res) => {
 
     // Create a Post
     const post = new Post({
-        email: req.body.email,
-        name: req.body.name,
-        active: req.body.active,
+        title: req.body.title,
+        text: req.body.text,
+        user_id: req.body.user_id,
     });
 
     // Save Post in the database

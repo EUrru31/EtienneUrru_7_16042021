@@ -49,7 +49,4 @@ server.on("listening", () => {
     console.log("Listening on " + bind);
 });
 
-require("./app/routes/users.js")(app);
-require("./app/routes/posts.js")(app);
-
 server.listen(port);

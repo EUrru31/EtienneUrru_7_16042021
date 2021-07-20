@@ -5,6 +5,7 @@ const path = require("path");
 
 //const saucesRoutes = require("./routes/sauces");
 const userRoutes = require("./routes/users");
+const postsRoutes = require("./routes/posts");
 require("dotenv").config();
 
 app.use(helmet());
@@ -35,5 +36,6 @@ app.use(
 
 // app.use("/api/sauces", saucesRoutes);
 app.use("/api/auth", userRoutes);
+app.use("/posts", postsRoutes);
 
 module.exports = app;
