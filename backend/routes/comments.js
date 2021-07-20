@@ -6,7 +6,7 @@ const commentCtrl = require("../controllers/comments");
 const comments = require("../controllers/comments.js");
 
 // Create a new comment
-router.comment("/", commentCtrl.create);
+router.post("/", commentCtrl.create);
 
 // Retrieve all comments
 router.get("/", commentCtrl.findAll);
