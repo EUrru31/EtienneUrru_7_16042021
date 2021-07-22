@@ -146,9 +146,6 @@ async function likePost(sauce, userId) {
         $push: { usersLiked: userId },
         $inc: { likes: 1 },
     };
-    if (sauce.usersDisliked.includes(userId)) {
-        updateOperation["$pull"] = { usersDisliked: userId };
-        updateOperation["$inc"].dislikes = -1;
-    }
+
     await Post.updateOne({ _id: post._id }, updateOperation);
 }
