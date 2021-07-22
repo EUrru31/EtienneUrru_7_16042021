@@ -14,6 +14,7 @@ exports.create = (req, res) => {
         title: req.body.title,
         text: req.body.text,
         user_id: req.body.user_id,
+        posts_id: req.body.posts_id,
     });
 
     // Save comment in the database
