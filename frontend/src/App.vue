@@ -1,14 +1,17 @@
 <template>
     <div id="app">
-        <loginPage></loginPage>
+        <img
+            id="logo"
+            alt="Logo Groupomania"
+            src="./assets/icon-above-font.png"
+        />
     </div>
 </template>
 
-<script>
-import loginPage from "./components/loginPage.vue";
+<script></script>
 
-export default {
-    name: "loginPage",
-    components: "loginPage",
-};
-</script>
+<style scoped>
+#logo {
+    width: 450px;
+}
+</style>
