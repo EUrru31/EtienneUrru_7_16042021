@@ -2,11 +2,22 @@
     <div class="card">
         <h4>Veuillez remplir le formulaire d'inscription:</h4>
         <div class="form-row">
-            <input class="form-row_input" type="text" placeholder="Nom" />
-            <input class="form-row_input" type="text" placeholder="Prénom" />
+            <input
+                v-model="nom"
+                class="form-row_input"
+                type="text"
+                placeholder="Nom"
+            />
+            <input
+                v-model="prenom"
+                class="form-row_input"
+                type="text"
+                placeholder="Prénom"
+            />
         </div>
         <div class="form-row">
             <input
+                v-model="email"
                 class="form-row_input"
                 type="email"
                 placeholder="Adresse mail"
@@ -14,18 +25,38 @@
         </div>
         <div class="form-row">
             <input
+                v-model="password"
                 class="form-row_input"
                 type="password"
                 placeholder="Mot de passe"
             />
         </div>
         <div class="form-row">
-            <button class="button">Inscription</button>
+            <button
+                @click="createAccount"
+                class="button"
+                :class="{ 'button--disabled': !validatedFields }"
+            >
+                Inscription
+            </button>
         </div>
     </div>
 </template>
 
-<script></script>
+<script>
+export default {
+    methods: {
+        createAccount: function() {
+            this.$store.dispatch("createAccount", {
+                email: this.email,
+                nom: this.nom,
+                prenom: this.prenom,
+                password: this.password,
+            });
+        },
+    },
+};
+</script>
 
 <style lang="scss" scoped>
 .card {

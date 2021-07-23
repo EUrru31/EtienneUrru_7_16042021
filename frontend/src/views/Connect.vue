@@ -4,6 +4,7 @@
 
         <div class="form-row">
             <input
+                v-model="email"
                 class="form-row_input"
                 type="email"
                 placeholder="Adresse mail"
@@ -11,6 +12,7 @@
         </div>
         <div class="form-row">
             <input
+                v-model="password"
                 class="form-row_input"
                 type="password"
                 placeholder="Mot de passe"
@@ -22,7 +24,9 @@
     </div>
 </template>
 
-<script></script>
+<script>
+export default {};
+</script>
 
 <style lang="scss" scoped>
 .card {
