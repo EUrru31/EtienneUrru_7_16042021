@@ -14,8 +14,11 @@ exports.signup = (req, res, next) => {
         .hash(req.body.password, 10)
         .then((hash) => {
             const user = new User({
+                nom: req.body.nom,
+                prenom: req.body.prenom,
                 email: req.body.email,
                 password: hash,
+                admin: false,
             });
             user.save()
                 .then(() =>
@@ -47,7 +50,7 @@ exports.login = (req, res, next) => {
                         token: jwt.sign(
                             { userId: user._id },
                             "RANDOM_TOKEN_SECRET",
-                            { expiresIn: "24h" }
+                            { expiresIn: "1h" }
                         ),
                     });
                 })

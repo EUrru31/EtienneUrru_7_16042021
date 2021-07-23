@@ -22,11 +22,11 @@ User.create = (newUser, result) => {
     });
 };
 
-User.findById = (userId, result) => {
+User.findOne = (userId, result) => {
     sql.query(`SELECT * FROM users WHERE id = ${userId}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(err, null);
+
             return;
         }
 
