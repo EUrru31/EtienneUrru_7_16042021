@@ -1,17 +1,20 @@
 <template>
-    <div id="app">
-        <img
-            id="logo"
-            alt="Logo Groupomania"
-            src="./assets/icon-above-font.png"
-        />
-    </div>
+    <nav id="nav">
+        <router-link to="/">Acceuil</router-link>
+        <router-link to="/Profile">Mon Profil</router-link>
+    </nav>
 </template>
 
-<script></script>
+<script>
+export default {
+    name: "App",
+    components: {},
+};
+</script>
 
 <style scoped>
-#logo {
-    width: 450px;
+#nav {
+    display: flex;
+    justify-content: flex-end;
 }
 </style>
