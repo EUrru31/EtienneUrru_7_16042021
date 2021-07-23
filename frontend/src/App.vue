@@ -1,11 +1,12 @@
 <template>
-    <h1 class="title">GROUPOMANIA</h1>
-    <p>Bienvenue sur le réseau social de Groupomania</p>
-    <nav>
-        <router-link to="/">Connexion</router-link>
-        <router-link to="/signin">Inscription</router-link>
-    </nav>
-    <router-view />
+    <router-view>
+        <h1 class="title">GROUPOMANIA</h1>
+        <p>Bienvenue sur le réseau social de Groupomania</p>
+        <nav>
+            <router-link to="/">Connexion</router-link>
+            <router-link to="/signin">Inscription</router-link>
+        </nav>
+    </router-view>
 </template>
 
 <script>
