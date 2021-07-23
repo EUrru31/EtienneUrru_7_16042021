@@ -1,4 +1,5 @@
 <template>
+    <h1 class="title">GROUPOMANIA</h1>
     <nav>
         <router-link to="/">Connexion</router-link>
         <router-link to="/signin">Inscription</router-link>
@@ -21,5 +22,19 @@ export default {
     text-align: center;
     color: #2c3e50;
     margin-top: 60px;
+}
+
+a {
+    text-decoration: none;
+    color: #999;
+}
+
+.router-link-active {
+    font-weight: bold;
+    color: red;
+}
+
+.title {
+    color: red;
 }
 </style>
