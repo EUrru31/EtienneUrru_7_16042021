@@ -1,5 +1,6 @@
 <template>
     <h1 class="title">GROUPOMANIA</h1>
+    <p>Bienvenue sur le réseau social de Groupomania</p>
     <nav>
         <router-link to="/">Connexion</router-link>
         <router-link to="/signin">Inscription</router-link>
@@ -32,6 +33,7 @@ a {
 .router-link-active {
     font-weight: bold;
     color: red;
+    margin: 15px;
 }
 
 .title {
