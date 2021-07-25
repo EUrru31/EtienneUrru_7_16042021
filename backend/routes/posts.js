@@ -3,8 +3,6 @@ const router = express.Router();
 
 const postCtrl = require("../controllers/posts");
 
-const posts = require("../controllers/posts.js");
-
 // Create a new Post
 router.post("/", postCtrl.create);
 
