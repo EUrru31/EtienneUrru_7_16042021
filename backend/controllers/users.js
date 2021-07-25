@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/users.js");
 
-exports.signup = (req, res, next) => {
+exports.signup = (req, res) => {
     sql.query("SELECT * FROM users;", (err, res) => {
         console.log(err);
         console.log(res);
@@ -41,10 +41,10 @@ exports.signup = (req, res, next) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-exports.login = (req, res, next) => {
-    User.findOne({ where: { email: req.body.email } });
+exports.login = (req, res) => {
+    const user = User.findOne(req.body.email);
 
-    if (!user) {
+    if (user === null) {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
     }
     bcrypt
