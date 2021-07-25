@@ -22,8 +22,8 @@ User.create = (newUser, result) => {
     });
 };
 
-User.findOne = (userId, result) => {
-    sql.query(`SELECT * FROM users WHERE id = ${userId}`, (err, res) => {
+User.findOne = (email, result) => {
+    sql.query(`SELECT * FROM users WHERE email = ${email}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
 

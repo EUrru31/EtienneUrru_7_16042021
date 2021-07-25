@@ -9,6 +9,18 @@ exports.signup = (req, res, next) => {
         console.log(err);
         console.log(res);
     });
+
+    const nom = req.body.nom;
+    const prenom = req.body.prenom;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    if (nom === "" || prenom === "" || email === "" || password === "") {
+        return res.status(400).json({
+            error: "Veuillez remplir le formulaire",
+        });
+    }
+
     //Sécurisation avec Bcrypt
     bcrypt
         .hash(req.body.password, 10)
@@ -30,31 +42,27 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-    User.findOne({ email: req.body.email });
+    User.findOne({ where: { email: req.body.email } });
+
     if (!user) {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
-    } else {
-        bcrypt
-            .compare(req.body.password, user.password)
-            .then((valid) => {
-                if (!valid) {
-                    return res
-                        .status(401)
-                        .json({ error: "Mot de passe incorrect !" });
-                }
-                res.status(200).json({
-                    userId: user._id,
-                    token: jwt.sign(
-                        { userId: user._id },
-                        "RANDOM_TOKEN_SECRET",
-                        {
-                            expiresIn: "1h",
-                        }
-                    ),
-                });
-            })
-            .catch((error) => res.status(500).json({ error }));
     }
+    bcrypt
+        .compare(req.body.password, user.password)
+        .then((valid) => {
+            if (!valid) {
+                return res
+                    .status(401)
+                    .json({ error: "Mot de passe incorrect !" });
+            }
+            res.status(200).json({
+                userId: user._id,
+                token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
+                    expiresIn: "1h",
+                }),
+            });
+        })
+        .catch((error) => res.status(500).json({ error }));
 };
 
 exports.create = (req, res) => {
