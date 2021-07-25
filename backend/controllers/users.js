@@ -42,7 +42,7 @@ exports.signup = (req, res) => {
 };
 
 exports.login = (req, res) => {
-    const user = User.findOne(req.body.email);
+    const user = User.findOne(req.body.email, req.body.password);
 
     if (user === null) {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
@@ -56,8 +56,8 @@ exports.login = (req, res) => {
                     .json({ error: "Mot de passe incorrect !" });
             }
             res.status(200).json({
-                userId: user._id,
-                token: jwt.sign({ userId: user._id }, "RANDOM_TOKEN_SECRET", {
+                userId: email,
+                token: jwt.sign({ email: email }, "RANDOM_TOKEN_SECRET", {
                     expiresIn: "1h",
                 }),
             });

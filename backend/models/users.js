@@ -23,7 +23,7 @@ User.create = (newUser, result) => {
 };
 
 User.findOne = (email, result) => {
-    sql.query("SELECT * FROM users;" (err, res) => {
+    sql.query(`SELECT * FROM users, ${email}`, (err, res) => {
         if (err) {
             console.log("error: ", err);
 
