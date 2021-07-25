@@ -1,39 +1,41 @@
 <template>
     <div class="card">
-        <h4>Mon Profil</h4>
-
+        <h1 class="card__title">Espace Perso</h1>
+        <p class="card__subtitle">Voilà donc qui je suis...</p>
+        <p>{{ user.prenom }} {{ user.nom }} {{ user.email }}</p>
+        <img :src="user.photo" />
         <div class="form-row">
-            <p>Nom</p>
-            <p>Prénom</p>
-        </div>
-        <div class="form-row">
-            <p>Adresse mail</p>
-        </div>
-        <div class="form-row">
-            <button class="button">Déconnection</button>
+            <button @click="logout()" class="button">
+                Déconnexion
+            </button>
         </div>
     </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
     name: "Profile",
+    mounted: function() {
+        console.log(this.$store.state.user);
+        if (this.$store.state.user.userId == -1) {
+            this.$router.push("/");
+            return;
+        }
+        this.$store.dispatch("getUserInfos");
+    },
+    computed: {
+        ...mapState({
+            user: "userInfos",
+        }),
+    },
+    methods: {
+        logout: function() {
+            this.$store.commit("logout");
+            this.$router.push("/");
+        },
+    },
 };
 </script>
 
-<style lang="scss" scoped>
-.card {
-    border: 1px solid black;
-    border-radius: 20px;
-    width: 400px;
-    margin: auto;
-    margin-top: 50px;
-    padding-bottom: 20px;
-}
-
-button {
-    border: 1px solid rgb(153, 153, 153);
-    border-radius: 5px;
-    margin: 20px;
-}
-</style>
+<style scoped></style>>

@@ -1,11 +1,5 @@
 <template>
-    <h1 class="title">GROUPOMANIA</h1>
-    <p>Bienvenue sur le réseau social de Groupomania</p>
-    <nav>
-        <router-link to="/">Connexion</router-link>
-        <router-link to="/signin">Inscription</router-link>
-    </nav>
-    <router-view />
+    <router-view></router-view>
 </template>
 
 <script>
@@ -15,28 +9,73 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;800&display=swap");
+* {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    max-width: 100%;
+}
+body {
+    background-image: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px;
+}
+img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+.card {
+    max-width: 100%;
+    width: 540px;
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+}
+.card__title {
     text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+    font-weight: 800;
 }
-
-a {
-    text-decoration: none;
-    color: #999;
+.card__subtitle {
+    text-align: center;
+    color: #666;
+    font-weight: 500;
 }
-
-.router-link-active {
-    font-weight: bold;
-    color: red;
-    margin: 15px;
+.button {
+    background: #2196f3;
+    color: white;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 15px;
+    border: none;
+    width: 100%;
+    padding: 16px;
+    transition: 0.4s background-color;
 }
-
-.title {
-    color: red;
+.card__action {
+    color: #2196f3;
+    text-decoration: underline;
+}
+.card__action:hover {
+    cursor: pointer;
+}
+.button:hover {
+    cursor: pointer;
+    background: #1976d2;
+}
+.button--disabled {
+    background: #cecece;
+    color: #ececec;
+}
+.button--disabled:hover {
+    cursor: not-allowed;
+    background: #cecece;
 }
 </style>
