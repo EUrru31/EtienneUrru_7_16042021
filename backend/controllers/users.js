@@ -43,7 +43,6 @@ exports.signup = (req, res) => {
 
 exports.login = (req, res) => {
     const user = User.findOne(req.body.email, req.body.password);
-
     if (user === null) {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
     }

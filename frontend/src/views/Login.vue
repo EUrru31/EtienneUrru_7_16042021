@@ -1,20 +1,7 @@
 <template>
     <div class="card">
-        <h4>Veuillez remplir le formulaire d'inscription:</h4>
-        <div class="form-row">
-            <input
-                v-model="nom"
-                class="form-row_input"
-                type="text"
-                placeholder="Nom"
-            />
-            <input
-                v-model="prenom"
-                class="form-row_input"
-                type="text"
-                placeholder="Prénom"
-            />
-        </div>
+        <h4>Veuillez entrer vos identifiants de connexion:</h4>
+
         <div class="form-row">
             <input
                 v-model="email"
@@ -32,29 +19,14 @@
             />
         </div>
         <div class="form-row">
-            <button
-                @click="createAccount"
-                class="button"
-                :class="{ 'button--disabled': !validatedFields }"
-            >
-                Inscription
-            </button>
+            <button class="button">Connexion</button>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    methods: {
-        createAccount: function() {
-            this.$store.dispatch("createAccount", {
-                email: this.email,
-                nom: this.nom,
-                prenom: this.prenom,
-                password: this.password,
-            });
-        },
-    },
+    name: "login",
 };
 </script>
 
