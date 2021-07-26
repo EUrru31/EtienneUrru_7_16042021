@@ -42,9 +42,11 @@
 const axios = require("axios");
 export default {
     name: "Home",
-    data: {
+    data: function() {
+return {
         posts: [],
-    },
+    };
+},
     methods: {
         updatePost() {
             axios
