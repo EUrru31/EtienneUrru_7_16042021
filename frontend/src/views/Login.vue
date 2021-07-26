@@ -13,44 +13,49 @@
             <h1 class="card__title" v-else>Inscription</h1>
 
             <div class="inputs" v-if="mode == 'create'">
-                <input
-                    v-model="prenom"
-                    class="input"
-                    type="text"
-                    placeholder="Prénom"
-                />
-                <input
-                    v-model="nom"
-                    class="input"
-                    type="text"
-                    placeholder="Nom"
-                />
-                <input
-                    v-model="password"
-                    class="input"
-                    type="password"
-                    placeholder="Mot de passe"
-                />
-                <input
-                    v-model="email"
-                    class="input"
-                    type="text"
-                    placeholder="Adresse mail"
-                />
+                <form>
+                    <input
+                        v-model="prenom"
+                        class="input"
+                        autocomplete="text"
+                        placeholder="Prénom"
+                    />
+                    <input
+                        v-model="nom"
+                        class="input"
+                        autocomplete="text"
+                        placeholder="Nom"
+                    />
+                    <input
+                        v-model="email"
+                        class="input"
+                        autocomplete="email"
+                        placeholder="Adresse mail"
+                    />
+                    <input
+                        v-model="password"
+                        class="input"
+                        autocomplete="password"
+                        placeholder="Mot de passe"
+                    />
+                </form>
             </div>
+
             <div class="inputs" v-if="mode == 'login'">
-                <input
-                    v-model="password"
-                    class="input"
-                    type="password"
-                    placeholder="Mot de passe"
-                />
-                <input
-                    v-model="email"
-                    class="input"
-                    type="text"
-                    placeholder="Adresse mail"
-                />
+                <form>
+                    <input
+                        v-model="email"
+                        class="input"
+                        autocomplete="text"
+                        placeholder="Adresse mail"
+                    />
+                    <input
+                        v-model="password"
+                        class="input"
+                        autocomplete="password"
+                        placeholder="Mot de passe"
+                    />
+                </form>
             </div>
             <div
                 class="form-row"

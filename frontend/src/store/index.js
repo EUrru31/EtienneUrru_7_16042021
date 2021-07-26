@@ -1,10 +1,12 @@
 import { createStore } from "vuex";
-
+import "es6-promise/auto";
 const axios = require("axios");
 
 const instance = axios.create({
-    baseURL: "https://localhost:5000/user",
+    baseURL: "http://localhost:3000/api/auth",
 });
+
+axios.defaults.baseURL = "http://localhost:3000/api/auth";
 
 let user = localStorage.getItem("user");
 if (!user) {
@@ -61,7 +63,7 @@ const store = createStore({
             commit("setStatus", "loading");
             return new Promise((resolve, reject) => {
                 instance
-                    .post("/login", userInfos)
+                    .post("/", userInfos)
                     .then(function(response) {
                         commit("setStatus", "");
                         commit("logUser", response.data);
@@ -78,7 +80,7 @@ const store = createStore({
             return new Promise((resolve, reject) => {
                 commit;
                 instance
-                    .post("/createAccount", userInfos)
+                    .post("/users", userInfos)
                     .then(function(response) {
                         commit("setStatus", "created");
                         resolve(response);
@@ -91,7 +93,7 @@ const store = createStore({
         },
         getUserInfos: ({ commit }) => {
             instance
-                .post("/infos")
+                .post("/users/:userId")
                 .then(function(response) {
                     commit("userInfos", response.data.infos);
                 })

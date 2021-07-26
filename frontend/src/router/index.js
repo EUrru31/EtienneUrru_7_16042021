@@ -26,6 +26,7 @@ const routes = [
         name: "Profile",
         path: "/profile",
         component: Profile,
+        props: true,
         meta: {
             title: "Profile",
         },
