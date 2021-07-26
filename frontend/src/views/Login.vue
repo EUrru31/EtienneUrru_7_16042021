@@ -12,8 +12,8 @@
             <h1 class="card__title" v-if="mode == 'login'">Connexion</h1>
             <h1 class="card__title" v-else>Inscription</h1>
 
-            <div class="inputs" v-if="mode == 'create'">
-                <form>
+            <div v-if="mode == 'create'">
+                <form class="inputs">
                     <input
                         v-model="prenom"
                         class="input"
@@ -41,8 +41,8 @@
                 </form>
             </div>
 
-            <div class="inputs" v-if="mode == 'login'">
-                <form>
+            <div v-if="mode == 'login'">
+                <form class="inputs">
                     <input
                         v-model="email"
                         class="input"
