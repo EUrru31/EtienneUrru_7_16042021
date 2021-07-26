@@ -1,55 +1,63 @@
 <template>
     <div>
-        <img alt="logo groupomania" src="icon-above-font.svg" />
+        <div class="login_header">
+            <img alt="logo groupomania" src="icon-above-font.svg" />
+            <p>Bienvenue dans le reseau social de Groupomania</p>
+        </div>
         <div class="card">
             <h1 class="card__title" v-if="mode == 'login'">Connexion</h1>
             <h1 class="card__title" v-else>Inscription</h1>
             <p class="card__subtitle" v-if="mode == 'login'">
                 Si c'est ta première visite :
-                <span class="card__action" @click="switchToCreateAccount()"
+                <span class="button" @click="switchToCreateAccount()"
                     >Créer un compte</span
                 >
             </p>
             <p class="card__subtitle" v-else>
                 Tu fais déja partie du réseau:
-                <span class="card__action" @click="switchToLogin()"
+                <span class="button" @click="switchToLogin()"
                     >Se connecter</span
                 >
             </p>
-            <div class="form-row">
-                <input
-                    v-model="email"
-                    class="form-row__input"
-                    type="text"
-                    placeholder="Adresse mail"
-                />
-            </div>
-            <div class="form-row" v-if="mode == 'create'">
+
+            <div class="inputs" v-if="mode == 'create'">
                 <input
                     v-model="prenom"
-                    class="form-row__input"
+                    class="input"
                     type="text"
                     placeholder="Prénom"
                 />
                 <input
                     v-model="nom"
-                    class="form-row__input"
+                    class="input"
                     type="text"
                     placeholder="Nom"
                 />
                 <input
-                    v-model="isAdmin"
-                    class="form-row__input"
-                    type="text"
-                    placeholder="isAdmin"
-                />
-            </div>
-            <div class="form-row">
-                <input
                     v-model="password"
-                    class="form-row__input"
+                    class="input"
                     type="password"
                     placeholder="Mot de passe"
+                />
+                <input
+                    v-model="email"
+                    class="input"
+                    type="text"
+                    placeholder="Adresse mail"
+                />
+            </div>
+            <div class="inputs" v-if="mode == 'login'">
+                <input
+                    v-model="password"
+                    class="input"
+                    type="password"
+                    placeholder="Mot de passe"
+                />
+                <input
+                    v-model="email"
+                    class="input"
+                    type="text"
+                    placeholder="Adresse mail"
                 />
             </div>
             <div
