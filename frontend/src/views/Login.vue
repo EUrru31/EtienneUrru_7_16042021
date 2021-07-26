@@ -58,11 +58,20 @@
             >
                 Identifiants de connexion invalide
             </div>
+            <div class="form-row" v-if="mode == 'create' && email == 'email'">
+                <!-- Si email déja utiliser !!!!!!! A MODIFIER !!!!!!!!!!!!!-->
+                Email déjà utilisée, connectez-vous !
+            </div>
             <div
                 class="form-row"
-                v-if="mode == 'create' && status == 'error_create'"
+                v-if="
+                    (mode == 'create' && email == null) ||
+                        nom == null ||
+                        prenom == null ||
+                        password == null
+                "
             >
-                Email déjà utilisée, connectez-vous !
+                Merci de remplir les champs !
             </div>
             <div class="form-row">
                 <button
