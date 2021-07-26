@@ -10,10 +10,21 @@ export default {
 </script>
 
 <style>
+body {
+    background-image: url(./assets/fond.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 .login_header {
     text-align: center;
     margin-top: 100px;
-    margin-bottom: 100px;
+    margin-bottom: 70px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.logo {
+    margin-bottom: 50px;
 }
 
 h1 {
@@ -29,6 +40,11 @@ h1 {
     width: 400px;
     margin: auto;
     margin-top: 50px;
+    padding: 30px;
+}
+
+.card__subtitle {
+    margin-top: 35px;
 }
 
 .inputs {
@@ -45,10 +61,18 @@ h1 {
 }
 
 .button {
-    border: 1px solid black;
+    border: 1px solid rgb(145, 100, 100);
     border-radius: 10px;
+    margin-top: 10px;
     padding: 5px;
     background-color: rgb(236, 124, 124);
     font-weight: bold;
+}
+
+.button-switch {
+    border: 0.5px solid rgb(173, 173, 173);
+    border-radius: 10px;
+    padding: 5px;
+    background-color: rgb(173, 173, 173);
 }
 </style>

@@ -1,24 +1,16 @@
 <template>
     <div>
         <div class="login_header">
-            <img alt="logo groupomania" src="icon-above-font.svg" />
+            <img
+                class="logo"
+                alt="logo groupomania"
+                src="icon-above-font.svg"
+            />
             <p>Bienvenue dans le reseau social de Groupomania</p>
         </div>
         <div class="card">
             <h1 class="card__title" v-if="mode == 'login'">Connexion</h1>
             <h1 class="card__title" v-else>Inscription</h1>
-            <p class="card__subtitle" v-if="mode == 'login'">
-                Si c'est ta première visite :
-                <span class="button" @click="switchToCreateAccount()"
-                    >Créer un compte</span
-                >
-            </p>
-            <p class="card__subtitle" v-else>
-                Tu fais déja partie du réseau:
-                <span class="button" @click="switchToLogin()"
-                    >Se connecter</span
-                >
-            </p>
 
             <div class="inputs" v-if="mode == 'create'">
                 <input
@@ -94,6 +86,18 @@
                     <span v-else>Créer mon compte</span>
                 </button>
             </div>
+            <p class="card__subtitle" v-if="mode == 'login'">
+                Si c'est ta première visite,
+                <span class="button-switch" @click="switchToCreateAccount()"
+                    >Créer un compte</span
+                >
+            </p>
+            <p class="card__subtitle" v-else>
+                Tu fais déja partie du réseau,
+                <span class="button-switch" @click="switchToLogin()"
+                    >Se connecter</span
+                >
+            </p>
         </div>
     </div>
 </template>
