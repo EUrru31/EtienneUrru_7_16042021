@@ -6,6 +6,8 @@ const instance = axios.create({
     baseURL: "http://localhost:3000/api/auth",
 });
 
+Vue.use(Vuex);
+
 let user = localStorage.getItem("user");
 if (!user) {
     user = {
