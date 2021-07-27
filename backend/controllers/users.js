@@ -5,11 +5,6 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/users.js");
 
 exports.signup = (req, res) => {
-    sql.query("SELECT * FROM users;", (err, res) => {
-        console.log(err);
-        console.log(res);
-    });
-
     const nom = req.body.nom;
     const prenom = req.body.prenom;
     const email = req.body.email;
@@ -32,36 +27,46 @@ exports.signup = (req, res) => {
                 password: hash,
                 admin: false,
             });
-            user.save()
-                .then(() =>
-                    res.status(201).json({ message: "Utilisateur créé !" })
-                )
-                .catch((error) => res.status(400).json({ error }));
+            User.create(user, (err, data) => {
+                if (err) {
+                    res.status(400).json({ err });
+                    return;
+                }
+                res.status(201).json({ message: "Utilisateur créé !" });
+            });
         })
         .catch((error) => res.status(500).json({ error }));
 };
 
 exports.login = (req, res) => {
-    const user = User.findOne(req.body.email, req.body.password);
-    if (user === null) {
-        return res.status(401).json({ error: "Utilisateur non trouvé !" });
-    }
-    bcrypt
-        .compare(req.body.password, user.password)
-        .then((valid) => {
-            if (!valid) {
-                return res
-                    .status(401)
-                    .json({ error: "Mot de passe incorrect !" });
-            }
-            res.status(200).json({
-                userId: email,
-                token: jwt.sign({ email: email }, "RANDOM_TOKEN_SECRET", {
-                    expiresIn: "1h",
-                }),
+    User.findOne(req.body.email, (err, user) => {
+        if (err) {
+            return res.status(401).json({ error: "Utilisateur non trouvé !" });
+        }
+        bcrypt
+            .compare(req.body.password, user.password)
+            .then((valid) => {
+                if (!valid) {
+                    return res
+                        .status(401)
+                        .json({ error: "Mot de passe incorrect !" });
+                }
+                res.status(200).json({
+                    userId: user.email,
+                    token: jwt.sign(
+                        { email: user.email },
+                        "RANDOM_TOKEN_SECRET",
+                        {
+                            expiresIn: "1h",
+                        }
+                    ),
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+                res.status(500).json({ error });
             });
-        })
-        .catch((error) => res.status(500).json({ error }));
+    });
 };
 
 exports.create = (req, res) => {

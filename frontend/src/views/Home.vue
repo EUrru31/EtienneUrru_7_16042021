@@ -26,7 +26,7 @@
         </modal>
         <button v-on:click="updatePost()">Actualiser</button>
 
-        <template v-for="post in posts" class="card_field">
+        <!-- <template v-for="post in posts" class="card_field">
             <p>{{ post.userId.nom }}{{ post.userId.prenom }}</p>
             <h3>{{ post.title }}</h3>
             <p>{{ post.content }}</p>
@@ -34,7 +34,7 @@
                 <i class="far fa-heart fa-lg"></i>
                 <i class="fas fa-heart"></i>
             </div>
-        </template>
+        </template> -->
     </div>
 </template>
 
@@ -43,10 +43,10 @@ const axios = require("axios");
 export default {
     name: "Home",
     data: function() {
-return {
-        posts: [],
-    };
-},
+        return {
+            posts: [],
+        };
+    },
     methods: {
         updatePost() {
             axios
