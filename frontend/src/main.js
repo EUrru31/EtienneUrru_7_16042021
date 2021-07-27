@@ -9,8 +9,3 @@ createApp(App)
     .use(store)
     .use(router)
     .mount("#app");
-
-new Vue({
-    store,
-    render: (h) => h(App),
-}).$mount("#app");
