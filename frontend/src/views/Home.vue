@@ -22,9 +22,8 @@
                     placeholder="Contenu"
                 />
             </form>
-            <button v-on:click="createPost()">Poster du contenu</button>
+            <button v-on:click="createPost()">Publier</button>
         </modal>
-        <button v-on:click="updatePost()">Actualiser</button>
 
         <!-- <template v-for="post in posts" class="card_field">
             <p>{{ post.userId.nom }}{{ post.userId.prenom }}</p>
