@@ -4,32 +4,35 @@
             <img
                 class="logo"
                 alt="logo groupomania"
-                src="icon-above-font.svg"
+                src="../assets/icon-left-font-monochrome-black.svg"
             />
-        </div>
-        <nav class="navbar navbar-expand navbar-light fixed-top">
-            <div class="container">
-                <a href="/home" class="navbar-brand">Acceuil</a>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="/profile" class="nav-link">Mon Profil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a @click="logout()" class="button">Déconnexion</a>
-                        </li>
-                    </ul>
+            <nav class="navbar navbar-expand navbar-light fixed-top">
+                <div class="container">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a href="/home" class="navbar-brand">Acceuil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/profile" class="nav-link"
+                                    >Mon Profil</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a @click="logout()" class="button"
+                                    >Déconnexion</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </div>
         <div class="card">
             <h1 class="card__title">Mon profil</h1>
-            <p>{{ user.prenom }} {{ user.nom }} {{ user.email }}</p>
-            <div class="form-row">
-                <button @click="logout()" class="button">
-                    Déconnexion
-                </button>
-            </div>
+            <!-- Remplacer les informations -->
+            <p class="card__profile">Etienne Urru</p>
+            <p class="card__profile">etienne.urru@gmail.com</p>
         </div>
     </div>
 </template>
@@ -46,6 +49,7 @@ export default {
         }
         this.$store.dispatch("getUserInfos");
     },
+
     computed: {
         ...mapState({
             user: "userInfos",
@@ -71,6 +75,7 @@ export default {
 
 .navbar-nav {
     display: flex;
+    justify-content: flex-end;
     margin-right: 40px;
     text-decoration: none;
     list-style-type: none;
@@ -81,8 +86,17 @@ export default {
 .header {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
-h1 {
-    margin: auto;
-}</style
->>
+
+.logo {
+    width: 400px;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+
+.card__profile {
+    display: flex;
+    flex-direction: column;
+}
+</style>

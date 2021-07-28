@@ -14,6 +14,7 @@ body {
     background-image: url(./assets/fond.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    font-family: Verdana, Tahoma, sans-serif;
 }
 .login_header {
     text-align: center;

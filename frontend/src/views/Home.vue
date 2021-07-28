@@ -4,44 +4,51 @@
             <img
                 class="logo"
                 alt="logo groupomania"
-                src="icon-above-font.svg"
+                src="../assets/icon-left-font-monochrome-black.svg"
             />
-        </div>
-        <nav class="navbar navbar-expand navbar-light fixed-top">
-            <div class="container">
-                <a href="/home" class="navbar-brand">Acceuil</a>
-                <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="/profile" class="nav-link">Mon Profil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a @click="logout()" class="button">Déconnexion</a>
-                        </li>
-                    </ul>
+            <nav class="navbar navbar-expand navbar-light fixed-top">
+                <div class="container">
+                    <div class="collapse navbar-collapse">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a href="/home" class="navbar-brand">Acceuil</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/profile" class="nav-link"
+                                    >Mon Profil</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a @click="logout()" class="button"
+                                    >Déconnexion</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-
-        <modal>
-            <form>
+            </nav>
+        </div>
+        <div class="wall">
+            <form class="publication">
                 <input
                     v-model="title"
-                    class="input"
+                    class="input title"
                     autocomplete="text"
                     placeholder="Titre"
                 />
                 <input
                     v-model="content"
-                    class="input"
+                    class="input content"
                     autocomplete="text"
                     placeholder="Contenu"
                 />
             </form>
-            <button v-on:click="createPost()">Publier</button>
-        </modal>
-
-        <!-- <template v-for="post in posts" class="card_field">
+            <button class="publication-button" v-on:click="createPost()">
+                Publier
+            </button>
+        </div>
+        <div class="wall">
+            <!-- <template v-for="post in posts" class="card_field">
             <p :key="post.id">{{ post.userId.nom }}{{ post.userId.prenom }}</p>
             <h3 :key="post.id">{{ post.title }}</h3>
             <p :key="post.id">{{ post.content }}</p>
@@ -50,6 +57,7 @@
                 <i class="fas fa-heart"></i>
             </div>
         </template> -->
+        </div>
     </div>
 </template>
 
@@ -90,6 +98,7 @@ export default {
 
 .navbar-nav {
     display: flex;
+    justify-content: flex-end;
     margin-right: 40px;
     text-decoration: none;
     list-style-type: none;
@@ -100,8 +109,36 @@ export default {
 .header {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 h1 {
     margin: auto;
+}
+.logo {
+    width: 400px;
+    margin-left: 3%;
+    margin-top: 2%;
+}
+.wall {
+    width: 60%;
+    height: auto;
+    margin: auto;
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 30px;
+}
+.publication {
+    display: flex;
+    flex-direction: column;
+}
+.title {
+    width: 35%;
+}
+.content {
+    width: auto;
+}
+.publication-button {
+    /* Aligné le bouton en bas a droite */
 }
 </style>
