@@ -1,12 +1,23 @@
 <template>
     <div>
         <h1>Page d'acceuil</h1>
-        <nav class="nav-bar">
-            <NavLink url="/Home" text="Accueil" />
-            <NavLink url="/Profile" text="Mon profil" />
-            <button>Deconnexion</button>
-        </nav>
         <img class="logo" alt="logo groupomania" src="icon-above-font.svg" />
+        <nav class="navbar navbar-expand navbar-light fixed-top">
+            <div class="container">
+                <a href="#" class="navbar-brand">Acceuil</a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Connexion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Inscriprion</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
         <modal>
             <form>
                 <input

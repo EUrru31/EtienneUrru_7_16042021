@@ -9,6 +9,7 @@ exports.signup = (req, res) => {
     const prenom = req.body.prenom;
     const email = req.body.email;
     const password = req.body.password;
+    const admin = req.body.admin;
 
     if (nom === "" || prenom === "" || email === "" || password === "") {
         return res.status(400).json({
@@ -21,11 +22,11 @@ exports.signup = (req, res) => {
         .hash(req.body.password, 10)
         .then((hash) => {
             const user = new User({
-                nom: req.body.nom,
-                prenom: req.body.prenom,
-                email: req.body.email,
+                nom: nom,
+                prenom: prenom,
+                email: email,
                 password: hash,
-                admin: false,
+                admin: admin,
             });
             User.create(user, (err, data) => {
                 if (err) {
