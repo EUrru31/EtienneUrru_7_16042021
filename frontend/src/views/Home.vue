@@ -48,6 +48,7 @@
             </button>
         </div>
         <div class="wall">
+            <h4>Dernières publications</h4>
             <!-- <template v-for="post in posts" class="card_field">
             <p :key="post.id">{{ post.userId.nom }}{{ post.userId.prenom }}</p>
             <h3 :key="post.id">{{ post.title }}</h3>
@@ -126,7 +127,7 @@ h1 {
     margin-bottom: 30px;
     background-color: white;
     border-radius: 20px;
-    padding: 30px;
+    padding: 20px;
 }
 .publication {
     display: flex;
