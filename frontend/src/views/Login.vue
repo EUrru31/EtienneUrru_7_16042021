@@ -4,7 +4,7 @@
             <img
                 class="logo"
                 alt="logo groupomania"
-                src="icon-above-font.svg"
+                src="../assets/icon-left-font-monochrome-black.svg"
             />
             <p>Bienvenue dans le reseau social de Groupomania</p>
         </div>
