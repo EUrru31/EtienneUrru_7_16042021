@@ -1,7 +1,12 @@
 <template>
     <div>
-        <h1>Page d'acceuil</h1>
-        <img class="logo" alt="logo groupomania" src="icon-above-font.svg" />
+        <div class="header">
+            <img
+                class="logo"
+                alt="logo groupomania"
+                src="icon-above-font.svg"
+            />
+        </div>
         <nav class="navbar navbar-expand navbar-light fixed-top">
             <div class="container">
                 <a href="/home" class="navbar-brand">Acceuil</a>
@@ -74,4 +79,29 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.navbar-nav {
+    display: flex;
+    margin-right: 40px;
+    text-decoration: none;
+    list-style-type: none;
+}
+.nav-item {
+    margin-right: 40px;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+}
+h1 {
+    margin: auto;
+}
+</style>
