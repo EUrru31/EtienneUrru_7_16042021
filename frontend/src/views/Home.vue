@@ -4,14 +4,14 @@
         <img class="logo" alt="logo groupomania" src="icon-above-font.svg" />
         <nav class="navbar navbar-expand navbar-light fixed-top">
             <div class="container">
-                <a href="#" class="navbar-brand">Acceuil</a>
+                <a href="/home" class="navbar-brand">Acceuil</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Connexion</a>
+                            <a href="/profile" class="nav-link">Mon Profil</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Inscriprion</a>
+                            <a @click="logout()" class="button">Déconnexion</a>
                         </li>
                     </ul>
                 </div>
@@ -65,6 +65,10 @@ export default {
         },
         createPost() {
             axios.get("http://localhost:3000/posts/post", {});
+        },
+        logout() {
+            this.$store.commit("logout");
+            this.$router.push("/");
         },
     },
 };

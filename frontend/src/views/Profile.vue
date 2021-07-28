@@ -28,7 +28,7 @@ export default {
         }),
     },
     methods: {
-        logout: function() {
+        logout() {
             this.$store.commit("logout");
             this.$router.push("/");
         },
