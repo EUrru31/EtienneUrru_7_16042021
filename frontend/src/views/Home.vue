@@ -25,7 +25,7 @@
             <button v-on:click="createPost()">Publier</button>
         </modal>
 
-        <template v-for="post in posts" class="card_field">
+        <!-- <template v-for="post in posts" class="card_field">
             <p :key="post.id">{{ post.userId.nom }}{{ post.userId.prenom }}</p>
             <h3 :key="post.id">{{ post.title }}</h3>
             <p :key="post.id">{{ post.content }}</p>
@@ -33,7 +33,7 @@
                 <i class="far fa-heart fa-lg"></i>
                 <i class="fas fa-heart"></i>
             </div>
-        </template>
+        </template> -->
     </div>
 </template>
 
