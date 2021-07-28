@@ -25,15 +25,15 @@
             <button v-on:click="createPost()">Publier</button>
         </modal>
 
-        <!-- <template v-for="post in posts" class="card_field">
-            <p>{{ post.userId.nom }}{{ post.userId.prenom }}</p>
-            <h3>{{ post.title }}</h3>
-            <p>{{ post.content }}</p>
-            <div class="like">
+        <template v-for="post in posts" class="card_field">
+            <p :key="post.id">{{ post.userId.nom }}{{ post.userId.prenom }}</p>
+            <h3 :key="post.id">{{ post.title }}</h3>
+            <p :key="post.id">{{ post.content }}</p>
+            <div class="like" :key="post.id">
                 <i class="far fa-heart fa-lg"></i>
                 <i class="fas fa-heart"></i>
             </div>
-        </template> -->
+        </template>
     </div>
 </template>
 
