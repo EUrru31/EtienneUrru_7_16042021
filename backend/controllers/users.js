@@ -59,7 +59,7 @@ exports.login = (req, res) => {
                         { email: user.email },
                         "RANDOM_TOKEN_SECRET",
                         {
-                            expiresIn: "1h",
+                            expiresIn: "24h",
                         }
                     ),
                 });

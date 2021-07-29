@@ -49,23 +49,17 @@
         </div>
         <div class="wall">
             <h4>Dernières publications</h4>
-            <!-- <template v-for="post in posts" class="card_field">
-            <p :key="post.id">{{ post.userId.nom }}{{ post.userId.prenom }}</p>
-            <h3 :key="post.id">{{ post.title }}</h3>
-            <p :key="post.id">{{ post.content }}</p>
-            <div class="like" :key="post.id">
-                <i class="far fa-heart fa-lg"></i>
-                <i class="fas fa-heart"></i>
-            </div>
-        </template> -->
+            <Post v-for="post in posts" :key="post.id" :postData="post" />
         </div>
     </div>
 </template>
 
 <script>
+import Post from "../components/Post";
 const axios = require("axios");
 export default {
     name: "Home",
+    components: { Post },
     data: function() {
         return {
             posts: [],
@@ -75,8 +69,8 @@ export default {
         };
     },
     async mounted() {
-        // this.$store.dispatch("getUserInfos");
-        console.log(this.$store.state.user);
+        await this.$store.dispatch("getAllPosts");
+        this.posts = this.$store.state.posts;
     },
     methods: {
         updatePost() {
@@ -84,8 +78,7 @@ export default {
                 .get("http://localhost:3000/posts/")
                 .then((reponse) => (this.posts = reponse.data));
         },
-        createPost() {
-            console.log(this.$store.state.user);
+        async createPost() {
             this.$store
 
                 .dispatch("createPost", {
@@ -101,6 +94,8 @@ export default {
                         console.log(error);
                     }
                 );
+            await this.$store.dispatch("getAllPosts");
+            this.posts = this.$store.state.posts;
         },
         logout() {
             this.$store.commit("logout");

@@ -115,7 +115,6 @@ exports.deleteAll = (req, res) => {
 // Like des postes
 exports.like = async (req, res, next) => {
     const like = req.body.like;
-    const postId = req.params.id;
     const userId = req.body.userId;
     const post = await Post.findOne({
         _id: req.params.id,

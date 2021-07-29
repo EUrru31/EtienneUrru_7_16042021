@@ -36,6 +36,7 @@ const store = createStore({
             isAdmin: 0,
             id: -1,
         },
+        posts: [],
     },
     mutations: {
         setStatus: function(state, status) {
@@ -55,6 +56,9 @@ const store = createStore({
                 token: "",
             };
             localStorage.removeItem("user");
+        },
+        fillPosts: function(state, posts) {
+            state.posts = posts;
         },
     },
     actions: {
@@ -106,6 +110,21 @@ const store = createStore({
                     .post("/posts/", postInfos)
                     .then(function(response) {
                         commit("setStatus", "created");
+                        resolve(response);
+                    })
+                    .catch(function(error) {
+                        commit("setStatus", "error_create");
+                        reject(error);
+                    });
+            });
+        },
+        getAllPosts: ({ commit }) => {
+            return new Promise((resolve, reject) => {
+                commit;
+                instance
+                    .get("/posts/")
+                    .then(function(response) {
+                        commit("fillPosts", response.data);
                         resolve(response);
                     })
                     .catch(function(error) {
