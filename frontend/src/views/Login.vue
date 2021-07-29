@@ -118,6 +118,7 @@
 
 <script>
 import { mapState } from "vuex";
+// import { loginUser } from "../../api-wrapper/login";
 export default {
     name: "Login",
     data: function() {
@@ -167,8 +168,9 @@ export default {
         switchToLogin: function() {
             this.mode = "login";
         },
-        login: function() {
+        login: async function() {
             const self = this;
+
             this.$store
                 .dispatch("login", {
                     email: this.email,
@@ -176,14 +178,14 @@ export default {
                 })
                 .then(
                     function() {
-                        self.$router.push("/Posts");
+                        self.$router.push("/Home");
                     },
                     function(error) {
                         console.log(error);
                     }
                 );
         },
-        createAccount: function() {
+        createAccount: async function() {
             const self = this;
             this.$store
                 .dispatch("createAccount", {

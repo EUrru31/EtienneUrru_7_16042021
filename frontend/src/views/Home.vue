@@ -69,7 +69,14 @@ export default {
     data: function() {
         return {
             posts: [],
+            title: "",
+            content: "",
+            user: {},
         };
+    },
+    async mounted() {
+        // this.$store.dispatch("getUserInfos");
+        console.log(this.$store.state.user);
     },
     methods: {
         updatePost() {
@@ -78,7 +85,22 @@ export default {
                 .then((reponse) => (this.posts = reponse.data));
         },
         createPost() {
-            axios.get("http://localhost:3000/posts/post", {});
+            console.log(this.$store.state.user);
+            this.$store
+
+                .dispatch("createPost", {
+                    title: this.title,
+                    text: this.content,
+                    user_id: this.$store.state.user.id,
+                })
+                .then(
+                    function(response) {
+                        console.log(response);
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
         },
         logout() {
             this.$store.commit("logout");

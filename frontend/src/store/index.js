@@ -3,7 +3,7 @@ import "es6-promise/auto";
 const axios = require("axios");
 
 const instance = axios.create({
-    baseURL: "http://localhost:3000/api/auth",
+    baseURL: "http://localhost:3000/",
 });
 
 let user = localStorage.getItem("user");
@@ -33,7 +33,8 @@ const store = createStore({
             nom: "",
             prenom: "",
             email: "",
-            photo: "",
+            isAdmin: 0,
+            id: -1,
         },
     },
     mutations: {
@@ -43,7 +44,7 @@ const store = createStore({
         logUser: function(state, user) {
             instance.defaults.headers.common["Authorization"] = user.token;
             localStorage.setItem("user", JSON.stringify(user));
-            state.user = user;
+            state.user = user.user;
         },
         userInfos: function(state, userInfos) {
             state.userInfos = userInfos;
@@ -61,7 +62,7 @@ const store = createStore({
             commit("setStatus", "loading");
             return new Promise((resolve, reject) => {
                 instance
-                    .post("/", userInfos)
+                    .post("/api/auth/login", userInfos)
                     .then(function(response) {
                         commit("setStatus", "");
                         commit("logUser", response.data);
@@ -78,7 +79,7 @@ const store = createStore({
             return new Promise((resolve, reject) => {
                 commit;
                 instance
-                    .post("/users", userInfos)
+                    .post("/api/auth/signin", userInfos)
                     .then(function(response) {
                         commit("setStatus", "created");
                         resolve(response);
@@ -96,6 +97,22 @@ const store = createStore({
                     commit("userInfos", response.data.infos);
                 })
                 .catch(function() {});
+        },
+        createPost: ({ commit }, postInfos) => {
+            commit("setStatus", "loading");
+            return new Promise((resolve, reject) => {
+                commit;
+                instance
+                    .post("/posts/", postInfos)
+                    .then(function(response) {
+                        commit("setStatus", "created");
+                        resolve(response);
+                    })
+                    .catch(function(error) {
+                        commit("setStatus", "error_create");
+                        reject(error);
+                    });
+            });
         },
     },
 });
