@@ -140,6 +140,6 @@ h1 {
     width: auto;
 }
 .publication-button {
-    /* Aligné le bouton en bas a droite */
+    display: flex;
 }
 </style>
