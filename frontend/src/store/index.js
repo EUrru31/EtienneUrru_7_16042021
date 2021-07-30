@@ -60,6 +60,9 @@ const store = createStore({
         fillPosts: function(state, posts) {
             state.posts = posts;
         },
+        fillComments: function(state, comments) {
+            state.comments = comments;
+        },
     },
     actions: {
         login: ({ commit }, userInfos) => {
@@ -83,7 +86,7 @@ const store = createStore({
             return new Promise((resolve, reject) => {
                 commit;
                 instance
-                    .post("/api/auth/signin", userInfos)
+                    .post("/api/auth/signup", userInfos)
                     .then(function(response) {
                         commit("setStatus", "created");
                         resolve(response);
@@ -94,9 +97,9 @@ const store = createStore({
                     });
             });
         },
-        getUserInfos: ({ commit }) => {
+        getUserInfos: ({ commit }, userInfos) => {
             instance
-                .post("/users/:userId")
+                .get("/api/auth/users/:userId", userInfos)
                 .then(function(response) {
                     commit("userInfos", response.data.infos);
                 })
@@ -125,6 +128,37 @@ const store = createStore({
                     .get("/posts/")
                     .then(function(response) {
                         commit("fillPosts", response.data);
+                        resolve(response);
+                    })
+                    .catch(function(error) {
+                        commit("setStatus", "error_create");
+                        reject(error);
+                    });
+            });
+        },
+        createComment: ({ commit }, commentInfos) => {
+            commit("setStatus", "loading");
+            return new Promise((resolve, reject) => {
+                commit;
+                instance
+                    .post("/comments/", commentInfos)
+                    .then(function(response) {
+                        commit("setStatus", "created");
+                        resolve(response);
+                    })
+                    .catch(function(error) {
+                        commit("setStatus", "error_create");
+                        reject(error);
+                    });
+            });
+        },
+        getAllComments: ({ commit }) => {
+            return new Promise((resolve, reject) => {
+                commit;
+                instance
+                    .get("/comments/")
+                    .then(function(response) {
+                        commit("fillComments", response.data);
                         resolve(response);
                     })
                     .catch(function(error) {

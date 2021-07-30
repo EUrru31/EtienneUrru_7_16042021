@@ -31,8 +31,8 @@
         <div class="card">
             <h1 class="card__title">Mon profil</h1>
             <!-- Remplacer les informations -->
-            <p class="card__profile">Etienne Urru</p>
-            <p class="card__profile">etienne.urru@gmail.com</p>
+            <p class="card__profile">{{ userName }}{{ userLastName }}</p>
+            <p class="card__profile">{{ userEmail }}</p>
         </div>
     </div>
 </template>
@@ -41,6 +41,30 @@
 import { mapState } from "vuex";
 export default {
     name: "Profile",
+
+    data: function() {
+        return {
+            user: {},
+            nom: "",
+            prenom: "",
+            email: "",
+        };
+    },
+
+    props: {
+        userName: {
+            type: Object,
+            required: true,
+        },
+        userLastName: {
+            type: Object,
+            required: true,
+        },
+        userEmail: {
+            type: Object,
+            required: true,
+        },
+    },
 
     mounted: function() {
         if (this.$store.state.user.userId == -1) {
@@ -56,6 +80,23 @@ export default {
         }),
     },
     methods: {
+        getUserInfos() {
+            this.$store
+
+                .dispatch("getUserInfos", {
+                    nom: this.nom,
+                    prenom: this.prenom,
+                    email: this.email,
+                })
+                .then(
+                    function(response) {
+                        console.log(response);
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
+        },
         logout() {
             this.$store.commit("logout");
             this.$router.push("/");

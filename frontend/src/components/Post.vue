@@ -20,20 +20,33 @@
                 </div>
             </div>
         </div>
-        <div>
-            <input
-                class="input content"
-                autocomplete="text"
-                placeholder="Commentaire"
-            />
-            <button>Commentez</button>
+        <div class="publication">
+            <form>
+                <input
+                    v-model="comment"
+                    class="input comment"
+                    autocomplete="text"
+                    placeholder="Commentaire"
+                />
+            </form>
+            <button class="publication-button" v-on:click="createComment()">
+                Commenter
+            </button>
         </div>
+        <hr />
     </div>
 </template>
 
 <script>
 export default {
     name: "Post",
+    data: function() {
+        return {
+            comments: [],
+            comment: "",
+            user: {},
+        };
+    },
 
     props: {
         postData: {
@@ -77,6 +90,24 @@ export default {
         },
     },
     methods: {
+        async createComment() {
+            this.$store
+
+                .dispatch("createComment", {
+                    comment: this.comment,
+                    user_id: this.$store.state.user.user.id,
+                })
+                .then(
+                    function(response) {
+                        console.log(response);
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
+            await this.$store.dispatch("getAllComments");
+            this.comments = this.$store.state.comments;
+        },
         editPost() {
             console.log("post edité");
         },
@@ -95,6 +126,22 @@ export default {
 </script>
 
 <style scoped>
+.publication {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.publication-button {
+    border-radius: 20px;
+    border: 0.1px solid;
+    background-color: rgb(201, 200, 200);
+    height: 30px;
+}
+.comment {
+    width: auto;
+    margin-bottom: 20px;
+}
+
 i {
     cursor: pointer;
     margin: 10px;
@@ -103,6 +150,7 @@ i {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    color: red;
 }
 .postIcon {
     display: flex;

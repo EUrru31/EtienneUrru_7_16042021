@@ -118,7 +118,6 @@
 
 <script>
 import { mapState } from "vuex";
-// import { loginUser } from "../../api-wrapper/login";
 export default {
     name: "Login",
     data: function() {
@@ -145,7 +144,7 @@ export default {
                     this.prenom != "" &&
                     this.nom != "" &&
                     this.password != "" &&
-                    this.isAdmin != ""
+                    this.isAdmin != "0"
                 ) {
                     return true;
                 } else {
@@ -197,7 +196,7 @@ export default {
                 })
                 .then(
                     function() {
-                        self.login();
+                        self.$router.push("/Home");
                     },
                     function(error) {
                         console.log(error);

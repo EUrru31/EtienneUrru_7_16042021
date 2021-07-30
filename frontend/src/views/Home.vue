@@ -84,7 +84,7 @@ export default {
                 .dispatch("createPost", {
                     title: this.title,
                     text: this.content,
-                    user_id: this.$store.state.user.id,
+                    user_id: this.$store.state.user.user.id,
                 })
                 .then(
                     function(response) {
@@ -131,6 +131,9 @@ export default {
 }
 h1 {
     margin: auto;
+}
+h4 {
+    text-decoration: underline;
 }
 .logo {
     width: 400px;
