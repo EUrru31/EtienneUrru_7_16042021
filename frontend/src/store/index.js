@@ -101,11 +101,43 @@ const store = createStore({
             instance
                 .get("/api/auth/users/:userId", userInfos)
                 .then(function(response) {
-                    commit("userInfos", response.data.infos);
+                    commit("userInfos", response.data);
                 })
                 .catch(function() {});
         },
+        deleteAccount: ({ commit }, userInfos) => {
+            commit("setStatus", "loading");
+            return new Promise((resolve, reject) => {
+                commit;
+                instance
+                    .delete("/api/auth/users", userInfos)
+                    .then(function(response) {
+                        commit("setStatus", "created");
+                        resolve(response);
+                    })
+                    .catch(function(error) {
+                        commit("setStatus", "error_create");
+                        reject(error);
+                    });
+            });
+        },
         createPost: ({ commit }, postInfos) => {
+            commit("setStatus", "loading");
+            return new Promise((resolve, reject) => {
+                commit;
+                instance
+                    .post("/posts/", postInfos)
+                    .then(function(response) {
+                        commit("setStatus", "created");
+                        resolve(response);
+                    })
+                    .catch(function(error) {
+                        commit("setStatus", "error_create");
+                        reject(error);
+                    });
+            });
+        },
+        updatePost: ({ commit }, postInfos) => {
             commit("setStatus", "loading");
             return new Promise((resolve, reject) => {
                 commit;

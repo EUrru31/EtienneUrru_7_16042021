@@ -63,6 +63,8 @@ export default {
     data: function() {
         return {
             posts: [],
+            nom: "",
+            prenom: "",
             title: "",
             content: "",
             user: {},

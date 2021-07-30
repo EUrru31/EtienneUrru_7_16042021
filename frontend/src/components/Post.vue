@@ -1,12 +1,32 @@
 <template>
     <div class="posts">
         <div class="postIcon">
-            <div class="post">
-                <h3>{{ postData.title }}</h3>
+            <div v-if="!isEditMode" class="post">
+                <h4>{{ postData.nom }}{{ postData.prenom }}</h4>
+                <h5>{{ postData.title }}</h5>
                 <p>{{ postData.text }}</p>
             </div>
+            <div v-if="isEditMode">
+                <input
+                    v-model="title"
+                    class="input title"
+                    autocomplete="text"
+                    placeholder="Titre"
+                />
+                <input
+                    v-model="content"
+                    class="input content"
+                    autocomplete="text"
+                    placeholder="Contenu"
+                />
+                <button v-on:click="updatePost()">Modifier</button>
+            </div>
             <div class="icons">
-                <div v-if="isEditable" @click.prevent="editPost()">
+                <div
+                    v-if="isEditable"
+                    @click="isEditMode = true"
+                    @click.prevent="editPost()"
+                >
                     <i class="fas fa-edit"></i>
                 </div>
                 <div v-if="isLikable" @click.prevent="likePost()">
@@ -45,6 +65,7 @@ export default {
             comments: [],
             comment: "",
             user: {},
+            isEditMode: false,
         };
     },
 
@@ -108,8 +129,24 @@ export default {
             await this.$store.dispatch("getAllComments");
             this.comments = this.$store.state.comments;
         },
-        editPost() {
-            console.log("post edité");
+        async updatePost() {
+            this.$store
+
+                .dispatch("updatePost", {
+                    title: this.title,
+                    text: this.content,
+                    user_id: this.$store.state.user.user.id,
+                })
+                .then(
+                    function(response) {
+                        console.log(response);
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
+            await this.$store.dispatch("getAllPosts");
+            this.posts = this.$store.state.posts;
         },
         likePost() {
             console.log("post liké");

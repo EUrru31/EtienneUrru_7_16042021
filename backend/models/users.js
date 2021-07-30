@@ -22,7 +22,7 @@ User.create = (newUser, result) => {
     });
 };
 
-User.findOne = (email, result) => {
+User.findById = (email, result) => {
     sql.query(`SELECT * FROM users WHERE email= ?`, [email], (err, res) => {
         if (err) {
             console.log("error: ", err);

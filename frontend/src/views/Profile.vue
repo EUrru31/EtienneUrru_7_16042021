@@ -33,6 +33,7 @@
             <!-- Remplacer les informations -->
             <p class="card__profile">{{ userName }}{{ userLastName }}</p>
             <p class="card__profile">{{ userEmail }}</p>
+            <button class="button__delete">Supprimer le compte</button>
         </div>
     </div>
 </template>
@@ -91,6 +92,25 @@ export default {
                 .then(
                     function(response) {
                         console.log(response);
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
+        },
+        deleteAccount: async function() {
+            const self = this;
+            this.$store
+                .dispatch("deleteAccount", {
+                    email: this.email,
+                    nom: this.nom,
+                    prenom: this.prenom,
+                    password: this.password,
+                    isAdmin: this.isAdmin,
+                })
+                .then(
+                    function() {
+                        self.$router.push("/Home");
                     },
                     function(error) {
                         console.log(error);
