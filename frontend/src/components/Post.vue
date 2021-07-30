@@ -2,7 +2,7 @@
     <div class="posts">
         <div class="postIcon">
             <div v-if="!isEditMode" class="post">
-                <h4>{{ postData.nom }}{{ postData.prenom }}</h4>
+                <h4>{{ postData.user_id.nom }}{{ postData.user_id.prenom }}</h4>
                 <h5>{{ postData.title }}</h5>
                 <p>{{ postData.text }}</p>
             </div>
@@ -29,7 +29,7 @@
                 >
                     <i class="fas fa-edit"></i>
                 </div>
-                <div v-if="isLikable" @click.prevent="likePost()">
+                <div id="likes" v-if="isLikable" @click.prevent="likePost()">
                     <i class="fas fa-heart"></i>
                 </div>
                 <div v-if="isCommentable" @click.prevent="commentPost()">
@@ -64,6 +64,8 @@ export default {
         return {
             comments: [],
             comment: "",
+            nom: "",
+            prenom: "",
             user: {},
             isEditMode: false,
         };
@@ -83,7 +85,7 @@ export default {
             return false;
         },
         isDeletable() {
-            if (this.$store.state.user.isAdmin === 1) {
+            if (this.$store.state.user.admin === true) {
                 return true;
             }
             if (this.postData.user_id === this.$store.state.user.user.id) {
@@ -149,7 +151,9 @@ export default {
             this.posts = this.$store.state.posts;
         },
         likePost() {
-            console.log("post liké");
+            document.getElementById(
+                "like"
+            ).innerText = this.$store.state.likes.length;
         },
         commentPost() {
             console.log("post commenté");
@@ -157,6 +161,7 @@ export default {
         deletePost() {
             console.log("post supprimé");
         },
+        postliked() {},
     },
     mounted() {},
 };

@@ -31,8 +31,8 @@
         <div class="card">
             <h1 class="card__title">Mon profil</h1>
             <!-- Remplacer les informations -->
-            <p class="card__profile">{{ userName }}{{ userLastName }}</p>
-            <p class="card__profile">{{ userEmail }}</p>
+            <p class="card__profile">{{ nom }}{{ prenom }}</p>
+            <p class="card__profile">{{ email }}</p>
             <button class="button__delete">Supprimer le compte</button>
         </div>
     </div>
@@ -40,12 +40,12 @@
 
 <script>
 import { mapState } from "vuex";
+const axios = require("axios");
 export default {
     name: "Profile",
 
     data: function() {
         return {
-            user: {},
             nom: "",
             prenom: "",
             email: "",
@@ -82,40 +82,20 @@ export default {
     },
     methods: {
         getUserInfos() {
-            this.$store
-
-                .dispatch("getUserInfos", {
-                    nom: this.nom,
-                    prenom: this.prenom,
-                    email: this.email,
-                })
-                .then(
-                    function(response) {
-                        console.log(response);
-                    },
-                    function(error) {
-                        console.log(error);
-                    }
-                );
+            axios
+                .get("http://localhost:3000/api/auth/:userId")
+                .then((reponse) => (this.users = reponse.data));
         },
         deleteAccount: async function() {
             const self = this;
-            this.$store
-                .dispatch("deleteAccount", {
-                    email: this.email,
-                    nom: this.nom,
-                    prenom: this.prenom,
-                    password: this.password,
-                    isAdmin: this.isAdmin,
-                })
-                .then(
-                    function() {
-                        self.$router.push("/Home");
-                    },
-                    function(error) {
-                        console.log(error);
-                    }
-                );
+            this.$store.dispatch("deleteAccount", {}).then(
+                function() {
+                    self.$router.push("/");
+                },
+                function(error) {
+                    console.log(error);
+                }
+            );
         },
         logout() {
             this.$store.commit("logout");
