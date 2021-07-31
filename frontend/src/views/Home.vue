@@ -126,6 +126,10 @@ export default {
 .nav-item {
     margin-right: 40px;
 }
+a {
+    text-decoration: none;
+    color: black;
+}
 .header {
     display: flex;
     flex-direction: row;
@@ -155,13 +159,16 @@ h4 {
     display: flex;
     flex-direction: column;
 }
+.publication-button {
+    border-radius: 10px;
+    border: 0.1px solid rgb(179, 179, 179);
+    background-color: rgb(228, 228, 228);
+    height: 25px;
+}
 .title {
     width: 35%;
 }
 .content {
     width: auto;
-}
-.publication-button {
-    display: flex;
 }
 </style>

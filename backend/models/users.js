@@ -22,8 +22,8 @@ User.create = (newUser, result) => {
     });
 };
 
-User.findById = (id, result) => {
-    sql.query(`SELECT * FROM users WHERE id= ?`, [id], (err, res) => {
+User.findById = (email, result) => {
+    sql.query(`SELECT * FROM users WHERE email= ?`, [email], (err, res) => {
         if (err) {
             console.log("error: ", err);
 

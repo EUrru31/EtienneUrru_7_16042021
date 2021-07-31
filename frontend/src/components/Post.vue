@@ -174,10 +174,10 @@ export default {
     justify-content: space-between;
 }
 .publication-button {
-    border-radius: 20px;
-    border: 0.1px solid;
-    background-color: rgb(201, 200, 200);
-    height: 30px;
+    border-radius: 10px;
+    border: 0.1px solid rgb(179, 179, 179);
+    background-color: rgb(228, 228, 228);
+    height: 25px;
 }
 .comment {
     width: auto;

@@ -68,6 +68,7 @@ h1 {
     padding: 5px;
     background-color: rgb(236, 124, 124);
     font-weight: bold;
+    cursor: pointer;
 }
 
 .button-switch {
