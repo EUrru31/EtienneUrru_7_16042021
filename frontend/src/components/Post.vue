@@ -2,19 +2,19 @@
     <div class="posts">
         <div class="postIcon">
             <div v-if="!isEditMode" class="post">
-                <h4>{{ postData.user_id.nom }}{{ postData.user_id.prenom }}</h4>
+                <h4>{{ nom }} {{ prenom }}</h4>
                 <h5>{{ postData.title }}</h5>
                 <p>{{ postData.text }}</p>
             </div>
             <div v-if="isEditMode">
                 <input
-                    v-model="title"
+                    v-model="newTitle"
                     class="input title"
                     autocomplete="text"
                     placeholder="Titre"
                 />
                 <input
-                    v-model="content"
+                    v-model="newContent"
                     class="input content"
                     autocomplete="text"
                     placeholder="Contenu"
@@ -29,10 +29,10 @@
                 >
                     <i class="fas fa-edit"></i>
                 </div>
-                <div id="likes" v-if="isLikable" @click.prevent="likePost()">
+                <div id="likes" @click.prevent="likePost()">
                     <i class="fas fa-heart"></i>
                 </div>
-                <div v-if="isCommentable" @click.prevent="commentPost()">
+                <div @click.prevent="commentPost()">
                     <i class="fas fa-comment-alt"></i>
                 </div>
                 <div v-if="isDeletable" @click.prevent="deletePost()">
@@ -53,11 +53,21 @@
                 Commenter
             </button>
         </div>
+        <div v-if="showComments">
+            <div v-for="comment in comments" :key="comment.id">
+                {{ comment.text }}
+            </div>
+        </div>
         <hr />
     </div>
 </template>
 
 <script>
+const axios = require("axios");
+
+const instance = axios.create({
+    baseURL: "http://localhost:3000/",
+});
 export default {
     name: "Post",
     data: function() {
@@ -66,6 +76,9 @@ export default {
             comment: "",
             nom: "",
             prenom: "",
+            newTitle: "",
+            newContent: "",
+            showComments: false,
             user: {},
             isEditMode: false,
         };
@@ -85,25 +98,8 @@ export default {
             return false;
         },
         isDeletable() {
-            if (this.$store.state.user.admin === true) {
-                return true;
-            }
-            if (this.postData.user_id === this.$store.state.user.user.id) {
-                return true;
-            }
-            return false;
-        },
-        isLikable() {
-            if (this.$store.state.user.isAdmin === 1) {
-                return true;
-            }
-            if (this.postData.user_id === this.$store.state.user.user.id) {
-                return true;
-            }
-            return false;
-        },
-        isCommentable() {
-            if (this.$store.state.user.isAdmin === 1) {
+            console.log(this.$store.state.user.user);
+            if (this.$store.state.user.user.admin === 1) {
                 return true;
             }
             if (this.postData.user_id === this.$store.state.user.user.id) {
@@ -114,56 +110,54 @@ export default {
     },
     methods: {
         async createComment() {
-            this.$store
-
-                .dispatch("createComment", {
-                    comment: this.comment,
-                    user_id: this.$store.state.user.user.id,
-                })
-                .then(
-                    function(response) {
-                        console.log(response);
-                    },
-                    function(error) {
-                        console.log(error);
-                    }
-                );
+            instance.post("/comments/", {
+                text: this.comment,
+                user_id: this.$store.state.user.user.id,
+                posts_id: this.postData.id,
+            });
             await this.$store.dispatch("getAllComments");
             this.comments = this.$store.state.comments;
         },
         async updatePost() {
-            this.$store
-
-                .dispatch("updatePost", {
-                    title: this.title,
-                    text: this.content,
+            await instance.put(`/posts/${this.postData.id}`),
+                {
+                    title: this.newTitle,
+                    text: this.newContent,
                     user_id: this.$store.state.user.user.id,
-                })
-                .then(
-                    function(response) {
-                        console.log(response);
-                    },
-                    function(error) {
-                        console.log(error);
-                    }
-                );
+                };
+
             await this.$store.dispatch("getAllPosts");
             this.posts = this.$store.state.posts;
         },
         likePost() {
-            document.getElementById(
-                "like"
-            ).innerText = this.$store.state.likes.length;
+            // document.getElementById(
+            //     "like"
+            // ).innerText = this.$store.state.likes.length;
         },
         commentPost() {
-            console.log("post commenté");
+            this.showComments = !this.showComments;
         },
-        deletePost() {
-            console.log("post supprimé");
+        async deletePost() {
+            console.log("coucou");
+            await instance.delete(`/posts/${this.postData.id}`);
+            this.$store.state.posts = this.$store.state.posts.filter(
+                (elem) => elem.id !== this.postData.id
+            );
         },
-        postliked() {},
     },
-    mounted() {},
+    async mounted() {
+        const user = await instance.get(
+            `/api/auth/users/id/${this.postData.user_id}`
+        );
+
+        this.nom = user.data.nom;
+        this.prenom = user.data.prenom;
+
+        this.comments = (
+            await instance.get(`/comments/postid/${this.postData.id}`)
+        ).data;
+        console.log(this.comments);
+    },
 };
 </script>
 

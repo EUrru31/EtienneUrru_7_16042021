@@ -2,7 +2,6 @@ const sql = require("./db.js");
 
 // constructor
 const Comment = function (comment) {
-    this.title = comment.title;
     this.text = comment.text;
     this.user_id = comment.user_id;
     this.posts_id = comment.posts_id;
@@ -40,6 +39,28 @@ Comment.findById = (commentId, result) => {
     });
 };
 
+Comment.findByPostId = (postId, result) => {
+    sql.query(
+        `SELECT * FROM comments WHERE posts_id = ${postId}`,
+        (err, res) => {
+            if (err) {
+                console.log("error: ", err);
+                result(err, null);
+                return;
+            }
+
+            if (res.length) {
+                console.log("found comment: ", res);
+                result(null, res);
+                return;
+            }
+
+            // not found comment with the id
+            result({ kind: "not_found" }, null);
+        }
+    );
+};
+
 Comment.getAll = (result) => {
     sql.query("SELECT * FROM comments", (err, res) => {
         if (err) {
@@ -53,10 +74,10 @@ Comment.getAll = (result) => {
     });
 };
 
-Comment.updateById = (id, title, text, result) => {
+Comment.updateById = (id, text, result) => {
     sql.query(
-        "UPDATE comments SET title = ?, text = ? WHERE id = ?",
-        [title, text, id],
+        "UPDATE comments SET text = ? WHERE id = ?",
+        [text, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);

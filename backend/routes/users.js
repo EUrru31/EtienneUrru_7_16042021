@@ -16,6 +16,7 @@ router.get("/users", userCtrl.findAll);
 
 // Retrieve a single User with userId
 router.get("/users/:userId", userCtrl.findOne);
+router.get("/users/id/:userId", userCtrl.findById);
 
 // Update a User with userId
 router.put("/users/:userId", userCtrl.update);

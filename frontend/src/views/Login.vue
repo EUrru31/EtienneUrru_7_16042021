@@ -185,8 +185,7 @@ export default {
                 );
         },
         createAccount: async function() {
-            const self = this;
-            this.$store
+            await this.$store
                 .dispatch("createAccount", {
                     email: this.email,
                     nom: this.nom,
@@ -195,13 +194,12 @@ export default {
                     isAdmin: this.isAdmin,
                 })
                 .then(
-                    function() {
-                        self.$router.push("/Home");
-                    },
+                    function() {},
                     function(error) {
                         console.log(error);
                     }
                 );
+            await this.login();
         },
     },
 };

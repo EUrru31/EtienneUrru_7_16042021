@@ -49,7 +49,7 @@
         </div>
         <div class="wall">
             <h4>Dernières publications</h4>
-            <Post v-for="post in posts" :key="post.id" :postData="post" />
+            <Post v-for="post in postsArray" :key="post.id" :postData="post" />
         </div>
     </div>
 </template>
@@ -72,7 +72,6 @@ export default {
     },
     async mounted() {
         await this.$store.dispatch("getAllPosts");
-        this.posts = this.$store.state.posts;
     },
     methods: {
         updatePost() {
@@ -81,6 +80,8 @@ export default {
                 .then((reponse) => (this.posts = reponse.data));
         },
         async createPost() {
+            console.log(this.$store.state.user.user);
+
             this.$store
 
                 .dispatch("createPost", {
@@ -97,11 +98,16 @@ export default {
                     }
                 );
             await this.$store.dispatch("getAllPosts");
-            this.posts = this.$store.state.posts;
         },
-        logout() {
-            this.$store.commit("logout");
+        async logout() {
+            await this.$store.dispatch("logout");
             this.$router.push("/");
+            console.log(this.$store.state.user.user);
+        },
+    },
+    computed: {
+        postsArray() {
+            return this.$store.state.posts;
         },
     },
 };

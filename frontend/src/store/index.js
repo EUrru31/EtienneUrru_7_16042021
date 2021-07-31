@@ -36,7 +36,11 @@ const store = createStore({
             isAdmin: 0,
             id: -1,
         },
-        posts: [],
+        commentInfos: {
+            userId: "",
+            postId: "",
+            text: "",
+        },
     },
     mutations: {
         setStatus: function(state, status) {
@@ -76,6 +80,7 @@ const store = createStore({
                         resolve(response);
                     })
                     .catch(function(error) {
+                        console.log(error);
                         commit("setStatus", "error_login");
                         reject(error);
                     });
@@ -89,6 +94,7 @@ const store = createStore({
                     .post("/api/auth/signup", userInfos)
                     .then(function(response) {
                         commit("setStatus", "created");
+
                         resolve(response);
                     })
                     .catch(function(error) {
@@ -97,22 +103,24 @@ const store = createStore({
                     });
             });
         },
-        getUserInfos: ({ commit }, userInfos) => {
+        getUserInfos: ({ userId }) => {
+            console.log("eee", userId);
             instance
-                .get("/api/auth/users/:userId", userInfos)
+                .get(`/api/auth/users/${userId}`, userId)
                 .then(function(response) {
-                    commit("userInfos", response.data);
+                    return response.data;
                 })
                 .catch(function() {});
         },
-        deleteAccount: ({ commit }, userInfos) => {
+        deleteAccount: ({ commit }) => {
+            console.log(user.user);
             commit("setStatus", "loading");
             return new Promise((resolve, reject) => {
                 commit;
                 instance
-                    .delete("/api/auth/users", userInfos)
+                    .delete(`/api/auth/users/${user.user.id}`, user.user)
                     .then(function(response) {
-                        commit("setStatus", "created");
+                        commit("logout");
                         resolve(response);
                     })
                     .catch(function(error) {
@@ -142,7 +150,7 @@ const store = createStore({
             return new Promise((resolve, reject) => {
                 commit;
                 instance
-                    .post("/posts/", postInfos)
+                    .put("/posts/", postInfos)
                     .then(function(response) {
                         commit("setStatus", "created");
                         resolve(response);
@@ -169,11 +177,16 @@ const store = createStore({
             });
         },
         createComment: ({ commit }, commentInfos) => {
+            console.log(commentInfos);
             commit("setStatus", "loading");
             return new Promise((resolve, reject) => {
                 commit;
                 instance
-                    .post("/comments/", commentInfos)
+                    .post("/comments/", {
+                        text: commentInfos.text,
+                        user_id: commentInfos.userId,
+                        post_id: commentInfos.postId,
+                    })
                     .then(function(response) {
                         commit("setStatus", "created");
                         resolve(response);
@@ -198,6 +211,9 @@ const store = createStore({
                         reject(error);
                     });
             });
+        },
+        logout: ({ commit }) => {
+            commit("logout");
         },
     },
 });

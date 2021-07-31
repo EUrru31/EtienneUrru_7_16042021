@@ -10,6 +10,7 @@ router.post("/", commentCtrl.create);
 
 // Retrieve all comments
 router.get("/", commentCtrl.findAll);
+router.get("/postid/:postId", commentCtrl.findByPostId);
 
 // Retrieve a single comment with postId
 router.get("/:commentId", commentCtrl.findOne);

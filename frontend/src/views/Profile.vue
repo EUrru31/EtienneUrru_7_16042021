@@ -19,7 +19,7 @@
                                 >
                             </li>
                             <li class="nav-item">
-                                <a @click="logout()" class="button"
+                                <a @click.prevent="logout()" class="button"
                                     >Déconnexion</a
                                 >
                             </li>
@@ -31,9 +31,11 @@
         <div class="card">
             <h1 class="card__title">Mon profil</h1>
             <!-- Remplacer les informations -->
-            <p class="card__profile">{{ nom }}{{ prenom }}</p>
+            <p class="card__profile">{{ nom }} {{ prenom }}</p>
             <p class="card__profile">{{ email }}</p>
-            <button class="button__delete">Supprimer le compte</button>
+            <button @click.prevent="deleteAccount()" class="button__delete">
+                Supprimer le compte
+            </button>
         </div>
     </div>
 </template>
@@ -52,27 +54,14 @@ export default {
         };
     },
 
-    props: {
-        userName: {
-            type: Object,
-            required: true,
-        },
-        userLastName: {
-            type: Object,
-            required: true,
-        },
-        userEmail: {
-            type: Object,
-            required: true,
-        },
-    },
-
     mounted: function() {
         if (this.$store.state.user.userId == -1) {
             this.$router.push("/profile");
             return;
         }
-        this.$store.dispatch("getUserInfos");
+        this.nom = this.$store.state.user.user.nom;
+        this.prenom = this.$store.state.user.user.prenom;
+        this.email = this.$store.state.user.user.email;
     },
 
     computed: {
@@ -88,7 +77,7 @@ export default {
         },
         deleteAccount: async function() {
             const self = this;
-            this.$store.dispatch("deleteAccount", {}).then(
+            this.$store.dispatch("deleteAccount", this.user).then(
                 function() {
                     self.$router.push("/");
                 },

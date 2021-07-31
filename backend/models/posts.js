@@ -82,14 +82,14 @@ Post.remove = (id, result) => {
             result(null, err);
             return;
         }
-
+        console.log(res);
         if (res.affectedRows == 0) {
             // not found Post with the id
             result({ kind: "not_found" }, null);
             return;
         }
 
-        console.log("deleted user with id: ", id);
+        console.log("deleted post with id: ", id);
         result(null, res);
     });
 };

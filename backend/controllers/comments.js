@@ -41,6 +41,18 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.findByPostId = (req, res) => {
+    Comment.findByPostId(req.params.postId, (err, data) => {
+        if (err)
+            res.status(500).send({
+                message:
+                    err.message ||
+                    "Some error occurred while retrieving comments.",
+            });
+        else res.send(data);
+    });
+};
+
 // Find a single comment with a commentId
 exports.findOne = (req, res) => {
     Comment.findById(req.params.commentId, (err, data) => {

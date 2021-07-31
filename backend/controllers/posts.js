@@ -88,7 +88,7 @@ exports.delete = (req, res) => {
         if (err) {
             if (err.kind === "not_found") {
                 res.status(404).send({
-                    message: `Not found Post with id ${req.params.postId}.`,
+                    message: `Not found Post with id ${req.params.postId}`,
                 });
             } else {
                 res.status(500).send({
