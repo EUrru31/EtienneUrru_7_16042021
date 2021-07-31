@@ -54,7 +54,11 @@
             </button>
         </div>
         <div v-if="showComments">
+            <h4>Commentaire(s)</h4>
             <div v-for="comment in comments" :key="comment.id">
+                <span class="nom__comments"
+                    >Nom Prenom{{ comment.prenom }}</span
+                >
                 {{ comment.text }}
             </div>
         </div>
@@ -196,5 +200,10 @@ i {
 .post {
     display: flex;
     flex-direction: column;
+}
+.nom__comments {
+    display: flex;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 </style>
