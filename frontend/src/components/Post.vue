@@ -1,6 +1,6 @@
 <template>
     <div class="posts">
-        <div class="postIcon">
+        <div class="post__icon">
             <div v-if="!isEditMode" class="post">
                 <h4>{{ nom }} {{ prenom }}</h4>
 
@@ -208,7 +208,7 @@ i {
     justify-content: flex-end;
     color: rgb(252, 101, 101);
 }
-.postIcon {
+.post_icon {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -231,5 +231,12 @@ i {
 }
 .text__comments {
     font-size: 0.8rem;
+}
+@media (max-width: 1000px) {
+    .post_icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 }
 </style>
