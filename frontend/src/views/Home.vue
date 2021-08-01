@@ -13,7 +13,7 @@
                 />
             </form>
             <div class="submit__publication">
-                <input type="file" @change="uploadImage()" id="file-input" />
+                <!-- <input type="file" @change="uploadImage()" id="file-input" /> -->
                 <button class="publication-button" v-on:click="createPost()">
                     Publier
                 </button>

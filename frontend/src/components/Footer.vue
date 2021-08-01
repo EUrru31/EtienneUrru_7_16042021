@@ -27,6 +27,7 @@ ul {
         align-items: center;
         flex-direction: column;
         margin-left: -40px;
+        font-size: 0.8rem;
     }
     li {
         margin-bottom: 15px;

@@ -82,9 +82,6 @@ h1 {
     background-color: rgb(173, 173, 173);
 }
 @media (max-width: 1000px) {
-    body {
-        height: 1000px;
-    }
     .logo {
         width: 80%;
         margin-bottom: 10px;

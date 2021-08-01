@@ -104,4 +104,10 @@ span {
     font-weight: bold;
     margin-left: 15px;
 }
+
+@media (max-width: 1000px) {
+    .card {
+        font-size: 0.8rem;
+    }
+}
 </style>
