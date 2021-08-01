@@ -28,5 +28,8 @@ ul {
         flex-direction: column;
         margin-left: -40px;
     }
+    li {
+        margin-bottom: 15px;
+    }
 }
 </style>
