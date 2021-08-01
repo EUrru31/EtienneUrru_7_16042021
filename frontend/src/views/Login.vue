@@ -51,6 +51,7 @@
                     />
                     <input
                         v-model="password"
+                        type="password"
                         class="input"
                         autocomplete="password"
                         placeholder="Mot de passe"

@@ -30,7 +30,7 @@
         </div>
         <div class="card">
             <h1 class="card__title">Mon profil</h1>
-            <!-- Remplacer les informations -->
+            <img :src="user.photo" />
             <p class="card__profile">{{ nom }} {{ prenom }}</p>
             <p class="card__profile">{{ email }}</p>
             <button @click.prevent="deleteAccount()" class="button__delete">
