@@ -26,6 +26,10 @@ body {
 
 .logo {
     margin-bottom: 50px;
+    width: 30%;
+    max-width: 300px;
+    margin-top: 10px;
+    margin-left: 30px;
 }
 
 h1 {
@@ -76,5 +80,22 @@ h1 {
     border-radius: 10px;
     padding: 5px;
     background-color: rgb(173, 173, 173);
+}
+@media (max-width: 1000px) {
+    body {
+        height: 1000px;
+    }
+    .logo {
+        width: 80%;
+        margin-bottom: 10px;
+        margin: auto;
+    }
+    .card {
+        width: 80%;
+    }
+    .login_header {
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
 }
 </style>

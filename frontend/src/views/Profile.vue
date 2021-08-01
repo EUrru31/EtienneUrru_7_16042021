@@ -1,33 +1,6 @@
 <template>
     <div>
-        <div class="header">
-            <img
-                class="logo"
-                alt="logo groupomania"
-                src="../assets/icon-left-font-monochrome-black.svg"
-            />
-            <nav class="navbar navbar-expand navbar-light fixed-top">
-                <div class="container">
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a href="/home" class="navbar-brand">Acceuil</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/profile" class="nav-link"
-                                    >Mon Profil</a
-                                >
-                            </li>
-                            <li class="nav-item">
-                                <a @click.prevent="logout()" class="button"
-                                    >Déconnexion</a
-                                >
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
+        <Header />
         <div class="card">
             <h1 class="card__title">Mon profil</h1>
             <img :src="user.photo" />
@@ -44,15 +17,18 @@
                 Supprimer le compte
             </button>
         </div>
+        <Footer />
     </div>
 </template>
 
 <script>
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { mapState } from "vuex";
 const axios = require("axios");
 export default {
     name: "Profile",
-
+    components: { Footer, Header },
     data: function() {
         return {
             nom: "",
@@ -111,28 +87,6 @@ export default {
     flex-direction: row;
     margin-left: 40px;
     margin-right: 40px;
-}
-
-.navbar-nav {
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 40px;
-    text-decoration: none;
-    list-style-type: none;
-}
-.nav-item {
-    margin-right: 40px;
-}
-.header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.logo {
-    width: 400px;
-    margin-left: 3%;
-    margin-top: 2%;
 }
 
 .card__profile {

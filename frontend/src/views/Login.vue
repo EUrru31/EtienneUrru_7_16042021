@@ -101,26 +101,31 @@
                     <span v-else>Créer mon compte</span>
                 </button>
             </div>
-            <p class="card__subtitle" v-if="mode == 'login'">
-                Si c'est ta première visite,
+            <div class="card__subtitle" v-if="mode == 'login'">
+                <p class="card__subtitle-text">Si c'est ta première visite,</p>
                 <span class="button-switch" @click="switchToCreateAccount()"
                     >Créer un compte</span
                 >
-            </p>
-            <p class="card__subtitle" v-else>
-                Tu fais déja partie du réseau,
+            </div>
+            <div class="card__subtitle" v-else>
+                <p class="card__subtitle-text">
+                    Tu fais déja partie du réseau,
+                </p>
                 <span class="button-switch" @click="switchToLogin()"
                     >Se connecter</span
                 >
-            </p>
+            </div>
         </div>
+        <Footer />
     </div>
 </template>
 
 <script>
+import Footer from "../components/Footer";
 import { mapState } from "vuex";
 export default {
     name: "Login",
+    components: { Footer },
     data: function() {
         return {
             mode: "login",
@@ -206,4 +211,14 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@media (max-width: 1000px) {
+    .card__subtitle {
+        display: flex;
+        flex-direction: column;
+    }
+    .card__subtitle-text {
+        font-size: 0.8rem;
+    }
+}
+</style>

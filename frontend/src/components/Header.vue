@@ -17,6 +17,9 @@
                         </li>
                         <li class="nav-item">
                             <a @click="logout()" class="button">Déconnexion</a>
+                            <a @click="logout()" class="button__icon"
+                                ><i class="fas fa-times-circle"></i
+                            ></a>
                         </li>
                     </ul>
                 </div>
@@ -27,6 +30,14 @@
 <script>
 export default {
     name: "Header",
+
+    methods: {
+        async logout() {
+            await this.$store.dispatch("logout");
+            this.$router.push("/");
+            console.log(this.$store.state.user.user);
+        },
+    },
 };
 </script>
 <style lang="scss" scoped>
@@ -48,5 +59,36 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+.button__icon {
+    display: none;
+}
+@media (max-width: 1000px) {
+    .logo {
+        margin-top: 20px;
+    }
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .nav-item {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 10px;
+        margin: auto;
+    }
+    .button__icon {
+        display: flex;
+        color: red;
+    }
+    .button {
+        display: none;
+    }
 }
 </style>
