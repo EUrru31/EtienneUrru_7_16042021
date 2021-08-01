@@ -49,10 +49,10 @@
                     Commenter
                 </button>
             </div>
-            <h4>Commentaire(s)</h4>
-            <div v-for="comment in comments" :key="comment.id">
-                <span class="nom__comments">Nom Prenom</span>
-                {{ comment.text }}
+            <h4 class="title__comments">Commentaire(s)</h4>
+            <div class="comments" v-for="comment in comments" :key="comment.id">
+                <span class="nom__comments">{{ nom }} {{ prenom }}</span>
+                <span class="text__comments">{{ comment.text }}</span>
             </div>
         </div>
         <hr />
@@ -202,9 +202,19 @@ i {
     display: flex;
     flex-direction: column;
 }
+.title__comments {
+    text-decoration: underline;
+}
+.comments {
+    margin: 15px;
+}
 .nom__comments {
     display: flex;
     font-weight: bold;
     margin-bottom: 5px;
+    font-size: 0.8rem;
+}
+.text__comments {
+    font-size: 0.8rem;
 }
 </style>

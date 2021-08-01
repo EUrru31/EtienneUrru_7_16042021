@@ -31,8 +31,15 @@
         <div class="card">
             <h1 class="card__title">Mon profil</h1>
             <img :src="user.photo" />
-            <p class="card__profile">{{ nom }} {{ prenom }}</p>
-            <p class="card__profile">{{ email }}</p>
+            <p class="card__profile">
+                Nom: <span>{{ nom }}</span>
+            </p>
+            <p class="card__profile">
+                Prenom: <span>{{ prenom }}</span>
+            </p>
+            <p class="card__profile">
+                Email: <span>{{ email }}</span>
+            </p>
             <button @click.prevent="deleteAccount()" class="button__delete">
                 Supprimer le compte
             </button>
@@ -130,7 +137,7 @@ export default {
 
 .card__profile {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 .button__delete {
     background-color: rgb(255, 70, 70);
@@ -138,5 +145,9 @@ export default {
     border: 1px solid rgb(255, 70, 70);
     margin-top: 30px;
     padding: 5px;
+}
+span {
+    font-weight: bold;
+    margin-left: 15px;
 }
 </style>
