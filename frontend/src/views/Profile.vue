@@ -76,15 +76,18 @@ export default {
                 .then((reponse) => (this.users = reponse.data));
         },
         deleteAccount: async function() {
-            const self = this;
-            this.$store.dispatch("deleteAccount", this.user).then(
-                function() {
-                    self.$router.push("/");
-                },
-                function(error) {
-                    console.log(error);
-                }
-            );
+            var res = confirm("Êtes-vous sûr de vouloir supprimer?");
+            if (res) {
+                const self = this;
+                this.$store.dispatch("deleteAccount", this.user).then(
+                    function() {
+                        self.$router.push("/");
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
+            }
         },
         logout() {
             this.$store.commit("logout");
@@ -128,5 +131,12 @@ export default {
 .card__profile {
     display: flex;
     flex-direction: column;
+}
+.button__delete {
+    background-color: rgb(255, 70, 70);
+    border-radius: 20px;
+    border: 1px solid rgb(255, 70, 70);
+    margin-top: 30px;
+    padding: 5px;
 }
 </style>

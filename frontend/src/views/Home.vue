@@ -178,7 +178,8 @@ h4 {
     height: auto;
     margin: auto;
     margin-bottom: 30px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 1px 2px 2px red;
     border-radius: 20px;
     padding: 20px;
 }
