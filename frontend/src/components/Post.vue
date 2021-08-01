@@ -22,6 +22,12 @@
                 <button v-on:click="updatePost()">Modifier</button>
             </div>
             <div class="icons">
+                <div id="likes" @click.prevent="likePost()">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div @click.prevent="commentPost()">
+                    <i class="fas fa-comment-alt"></i>
+                </div>
                 <div
                     v-if="isEditable"
                     @click="isEditMode = true"
@@ -29,31 +35,26 @@
                 >
                     <i class="fas fa-edit"></i>
                 </div>
-                <div id="likes" @click.prevent="likePost()">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <div @click.prevent="commentPost()">
-                    <i class="fas fa-comment-alt"></i>
-                </div>
                 <div v-if="isDeletable" @click.prevent="deletePost()">
                     <i class="fas fa-trash"></i>
                 </div>
             </div>
         </div>
-        <div class="publication">
-            <form>
-                <input
-                    v-model="comment"
-                    class="input comment"
-                    autocomplete="text"
-                    placeholder="Commentaire"
-                />
-            </form>
-            <button class="publication-button" v-on:click="createComment()">
-                Commenter
-            </button>
-        </div>
+
         <div v-if="showComments">
+            <div class="publication">
+                <form>
+                    <input
+                        v-model="comment"
+                        class="input comment"
+                        autocomplete="text"
+                        placeholder="Commentaire"
+                    />
+                </form>
+                <button class="publication-button" v-on:click="createComment()">
+                    Commenter
+                </button>
+            </div>
             <h4>Commentaire(s)</h4>
             <div v-for="comment in comments" :key="comment.id">
                 <span class="nom__comments">Nom Prenom</span>
