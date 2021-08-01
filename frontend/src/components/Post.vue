@@ -51,8 +51,13 @@
             </div>
             <h4 class="title__comments">Commentaire(s)</h4>
             <div class="comments" v-for="comment in comments" :key="comment.id">
-                <span class="nom__comments">{{ nom }} {{ prenom }}</span>
-                <span class="text__comments">{{ comment.text }}</span>
+                <div>
+                    <span class="nom__comments">{{ nom }} {{ prenom }}</span>
+                    <span class="text__comments">{{ comment.text }}</span>
+                </div>
+                <div v-if="isDeletable" @click.prevent="deleteComment()">
+                    <i class="fas fa-trash"></i>
+                </div>
             </div>
         </div>
         <hr />
@@ -139,6 +144,12 @@ export default {
                 (elem) => elem.id !== this.postData.id
             );
         },
+        async deleteComment() {
+            await instance.delete(`/comments/${this.$store.state.comments}`);
+            this.$store.state.comments = this.$store.state.comments.filter(
+                (elem) => elem.id !== this.this.$store.state.comments
+            );
+        },
     },
     async mounted() {
         const user = await instance.get(
@@ -172,6 +183,10 @@ export default {
     width: auto;
     margin-bottom: 20px;
 }
+.comments {
+    display: flex;
+    justify-content: space-between;
+}
 
 h4 {
     font-size: 0.9rem;
@@ -191,7 +206,7 @@ i {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    color: red;
+    color: rgb(252, 101, 101);
 }
 .postIcon {
     display: flex;
