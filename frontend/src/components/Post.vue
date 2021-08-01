@@ -3,16 +3,10 @@
         <div class="postIcon">
             <div v-if="!isEditMode" class="post">
                 <h4>{{ nom }} {{ prenom }}</h4>
-                <h5>{{ postData.title }}</h5>
+
                 <p>{{ postData.text }}</p>
             </div>
             <div v-if="isEditMode">
-                <input
-                    v-model="newTitle"
-                    class="input title"
-                    autocomplete="text"
-                    placeholder="Titre"
-                />
                 <input
                     v-model="newContent"
                     class="input content"
@@ -79,7 +73,7 @@ export default {
             comment: "",
             nom: "",
             prenom: "",
-            newTitle: "",
+
             newContent: "",
             showComments: false,
             user: {},
@@ -124,7 +118,6 @@ export default {
         async updatePost() {
             await instance.put(`/posts/${this.postData.id}`),
                 {
-                    title: this.newTitle,
                     text: this.newContent,
                     user_id: this.$store.state.user.user.id,
                 };

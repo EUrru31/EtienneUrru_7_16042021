@@ -31,12 +31,6 @@
         <div class="wall">
             <form class="publication">
                 <input
-                    v-model="title"
-                    class="input title"
-                    autocomplete="text"
-                    placeholder="Titre"
-                />
-                <input
                     v-model="content"
                     class="input content"
                     autocomplete="text"
@@ -65,7 +59,7 @@ export default {
             posts: [],
             nom: "",
             prenom: "",
-            title: "",
+
             content: "",
             user: {},
         };
@@ -85,7 +79,6 @@ export default {
             this.$store
 
                 .dispatch("createPost", {
-                    title: this.title,
                     text: this.content,
                     user_id: this.$store.state.user.user.id,
                 })
@@ -171,9 +164,7 @@ h4 {
     background-color: rgb(228, 228, 228);
     height: 25px;
 }
-.title {
-    width: 35%;
-}
+
 .content {
     width: auto;
 }

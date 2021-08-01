@@ -11,7 +11,6 @@ exports.create = (req, res) => {
 
     // Create a Post
     const post = new Post({
-        title: req.body.title,
         text: req.body.text,
         user_id: req.body.user_id,
     });

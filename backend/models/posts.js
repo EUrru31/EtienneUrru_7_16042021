@@ -2,7 +2,6 @@ const sql = require("./db.js");
 
 // constructor
 const Post = function (post) {
-    this.title = post.title;
     this.text = post.text;
     this.user_id = post.user_id;
 };
@@ -52,10 +51,10 @@ Post.getAll = (result) => {
     });
 };
 
-Post.updateById = (id, title, text, result) => {
+Post.updateById = (id, text, result) => {
     sql.query(
-        "UPDATE posts SET title = ?, text = ? WHERE id = ?",
-        [title, text, id],
+        "UPDATE posts SET text = ? WHERE id = ?",
+        [text, id],
         (err, res) => {
             if (err) {
                 console.log("error: ", err);
