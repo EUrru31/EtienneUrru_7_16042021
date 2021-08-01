@@ -238,5 +238,12 @@ i {
         flex-direction: column;
         justify-content: space-between;
     }
+    .publication {
+        display: flex;
+        flex-direction: column;
+    }
+    .input {
+        width: 80%;
+    }
 }
 </style>

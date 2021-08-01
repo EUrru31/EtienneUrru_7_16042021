@@ -149,4 +149,14 @@ h4 {
 .content {
     width: auto;
 }
+@media (max-width: 1000px) {
+    .submit__publication {
+        display: flex;
+        flex-direction: column;
+    }
+    .publication-button {
+        margin-top: 10px;
+        align-self: center;
+    }
+}
 </style>
