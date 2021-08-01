@@ -1,33 +1,6 @@
 <template>
     <div>
-        <div class="header">
-            <img
-                class="logo"
-                alt="logo groupomania"
-                src="../assets/icon-left-font-monochrome-black.svg"
-            />
-            <nav class="navbar navbar-expand navbar-light fixed-top">
-                <div class="container">
-                    <div class="collapse navbar-collapse">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a href="/home" class="navbar-brand">Acceuil</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/profile" class="nav-link"
-                                    >Mon Profil</a
-                                >
-                            </li>
-                            <li class="nav-item">
-                                <a @click="logout()" class="button"
-                                    >Déconnexion</a
-                                >
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
+        <Header />
         <div class="wall">
             <form class="publication">
                 <input
@@ -40,12 +13,7 @@
                 />
             </form>
             <div class="submit__publication">
-                <input
-                    type="file"
-                    accept="image/*"
-                    @change="uploadImage($event)"
-                    id="file-input"
-                />
+                <input type="file" @change="uploadImage()" id="file-input" />
                 <button class="publication-button" v-on:click="createPost()">
                     Publier
                 </button>
@@ -55,15 +23,18 @@
             <h4>Dernières publications</h4>
             <Post v-for="post in postsArray" :key="post.id" :postData="post" />
         </div>
+        <Footer />
     </div>
 </template>
 
 <script>
+import Header from "../components/Header";
 import Post from "../components/Post";
+import Footer from "../components/Footer";
 const axios = require("axios");
 export default {
     name: "Home",
-    components: { Post },
+    components: { Post, Footer, Header },
     data: function() {
         return {
             posts: [],
@@ -138,25 +109,6 @@ export default {
     margin-right: 40px;
 }
 
-.navbar-nav {
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 40px;
-    text-decoration: none;
-    list-style-type: none;
-}
-.nav-item {
-    margin-right: 40px;
-}
-a {
-    text-decoration: none;
-    color: black;
-}
-.header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
 .submit__publication {
     display: flex;
     justify-content: space-between;
@@ -179,8 +131,8 @@ h4 {
     margin: auto;
     margin-bottom: 30px;
     background-color: rgb(255, 255, 255);
-    box-shadow: 1px 2px 2px red;
-    border-radius: 20px;
+    box-shadow: 1px 2px 2px rgb(255, 60, 60);
+    border-radius: 5px;
     padding: 20px;
 }
 .publication {
