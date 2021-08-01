@@ -4,7 +4,7 @@
             <div v-if="!isEditMode" class="post">
                 <h4>{{ nom }} {{ prenom }}</h4>
 
-                <p>{{ postData.text }}</p>
+                <p class="text__post">{{ postData.text }}</p>
             </div>
             <div v-if="isEditMode">
                 <input
@@ -134,7 +134,6 @@ export default {
             this.showComments = !this.showComments;
         },
         async deletePost() {
-            console.log("coucou");
             await instance.delete(`/posts/${this.postData.id}`);
             this.$store.state.posts = this.$store.state.posts.filter(
                 (elem) => elem.id !== this.postData.id
@@ -172,6 +171,16 @@ export default {
 .comment {
     width: auto;
     margin-bottom: 20px;
+}
+
+h4 {
+    font-size: 0.9rem;
+    margin: 10px;
+}
+
+.text__post {
+    font-size: 0.8rem;
+    margin: 10px;
 }
 
 i {

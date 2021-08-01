@@ -32,14 +32,24 @@
             <form class="publication">
                 <input
                     v-model="content"
+                    id="cform"
+                    type="textarea"
                     class="input content"
                     autocomplete="text"
                     placeholder="Contenu"
                 />
             </form>
-            <button class="publication-button" v-on:click="createPost()">
-                Publier
-            </button>
+            <div class="submit__publication">
+                <input
+                    type="file"
+                    accept="image/*"
+                    @change="uploadImage($event)"
+                    id="file-input"
+                />
+                <button class="publication-button" v-on:click="createPost()">
+                    Publier
+                </button>
+            </div>
         </div>
         <div class="wall">
             <h4>Dernières publications</h4>
@@ -68,6 +78,19 @@ export default {
         await this.$store.dispatch("getAllPosts");
     },
     methods: {
+        // uploadImage(event) {
+        //     const URL = "";
+
+        //     let data = new FormData();
+        //     data.append("name", "my-picture");
+        //     data.append("file", event.target.files[0]);
+
+        //     let config = { header: { "Content-Type": "image/png" } };
+
+        //     axios.put(URL, data, config).then((response) => {
+        //         console.log("image upload response > ", response);
+        //     });
+        // },
         updatePost() {
             axios
                 .get("http://localhost:3000/posts/")
@@ -133,6 +156,11 @@ a {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+.submit__publication {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
 }
 h1 {
     margin: auto;
