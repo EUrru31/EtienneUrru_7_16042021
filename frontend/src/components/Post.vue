@@ -16,9 +16,6 @@
                 <button v-on:click="updatePost()">Modifier</button>
             </div>
             <div class="icons">
-                <div id="likes" @click.prevent="likePost()">
-                    <i class="fas fa-heart"></i>
-                </div>
                 <div @click.prevent="commentPost()">
                     <i class="fas fa-comment-alt"></i>
                 </div>
@@ -100,7 +97,6 @@ export default {
             return false;
         },
         isDeletable() {
-            console.log(this.$store.state.user.user);
             if (this.$store.state.user.user.admin === 1) {
                 return true;
             }
@@ -111,6 +107,11 @@ export default {
         },
     },
     methods: {
+        updateComment() {
+            axios
+                .get("http://localhost:3000/comments/")
+                .then((reponse) => (this.comments = reponse.data));
+        },
         async createComment() {
             instance.post("/comments/", {
                 text: this.comment,
@@ -130,11 +131,7 @@ export default {
             await this.$store.dispatch("getAllPosts");
             this.posts = this.$store.state.posts;
         },
-        likePost() {
-            // document.getElementById(
-            //     "like"
-            // ).innerText = this.$store.state.likes.length;
-        },
+
         commentPost() {
             this.showComments = !this.showComments;
         },
@@ -162,7 +159,6 @@ export default {
         this.comments = (
             await instance.get(`/comments/postid/${this.postData.id}`)
         ).data;
-        console.log(this.comments);
     },
 };
 </script>

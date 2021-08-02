@@ -13,9 +13,9 @@ exports.create = (req, res) => {
     const post = new Post({
         text: req.body.text,
         user_id: req.body.user_id,
-        imageUrl: `${req.protocol}://${req.get("host")}/images/${
-            req.file.filename
-        }`,
+        // imageUrl: `${req.protocol}://${req.get("host")}/images/${
+        //     req.file.filename
+        // }`,
     });
 
     // Save Post in the database

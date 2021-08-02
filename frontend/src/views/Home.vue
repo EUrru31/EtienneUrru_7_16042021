@@ -68,8 +68,6 @@ export default {
                 .then((reponse) => (this.posts = reponse.data));
         },
         async createPost() {
-            console.log(this.$store.state.user.user);
-
             this.$store
 
                 .dispatch("createPost", {

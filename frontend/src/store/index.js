@@ -113,7 +113,6 @@ const store = createStore({
                 .catch(function() {});
         },
         deleteAccount: ({ commit }) => {
-            console.log(user.user);
             commit("setStatus", "loading");
             return new Promise((resolve, reject) => {
                 commit;
@@ -197,11 +196,11 @@ const store = createStore({
                     });
             });
         },
-        getAllComments: ({ commit }) => {
+        getAllComments: ({ commit }, posts) => {
             return new Promise((resolve, reject) => {
                 commit;
                 instance
-                    .get("/comments/")
+                    .get(`/comments/postId/${this.postData.id}`, posts.post)
                     .then(function(response) {
                         commit("fillComments", response.data);
                         resolve(response);
