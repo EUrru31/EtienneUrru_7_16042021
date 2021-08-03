@@ -45,6 +45,7 @@ export default {
         };
     },
     async mounted() {
+        this.$router.push("/Home");
         await this.$store.dispatch("getAllPosts");
     },
     methods: {

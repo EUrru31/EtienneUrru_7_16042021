@@ -81,7 +81,7 @@ export default {
             if (this.$store.state.user.admin === 1) {
                 return true;
             }
-            if (this.postData.user_id === this.$store.state.user.user.id) {
+            if (this.postData.user_id === this.$store.state.user.id) {
                 return true;
             }
             return false;
