@@ -212,6 +212,16 @@ export default {
 </script>
 
 <style scoped>
+.button-switch {
+    align-self: center;
+}
+.card__subtitle {
+    display: flex;
+    flex-direction: row;
+}
+.card__subtitle-text {
+    font-size: 0.8rem;
+}
 @media (max-width: 1000px) {
     .card__subtitle {
         display: flex;
