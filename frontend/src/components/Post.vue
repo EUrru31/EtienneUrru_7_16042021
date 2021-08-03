@@ -6,26 +6,12 @@
 
                 <p class="text__post">{{ postData.text }}</p>
             </div>
-            <div v-if="isEditMode">
-                <input
-                    v-model="newContent"
-                    class="input content"
-                    autocomplete="text"
-                    placeholder="Contenu"
-                />
-                <button v-on:click="updatePost()">Modifier</button>
-            </div>
+
             <div class="icons">
                 <div @click.prevent="commentPost()">
                     <i class="fas fa-comment-alt"></i>
                 </div>
-                <div
-                    v-if="isEditable"
-                    @click="isEditMode = true"
-                    @click.prevent="editPost()"
-                >
-                    <i class="fas fa-edit"></i>
-                </div>
+
                 <div v-if="isDeletable" @click.prevent="deletePost()">
                     <i class="fas fa-trash"></i>
                 </div>
@@ -49,7 +35,9 @@
             <h4 class="title__comments">Commentaire(s)</h4>
             <div class="comments" v-for="comment in comments" :key="comment.id">
                 <div>
-                    <span class="nom__comments">{{ nom }} {{ prenom }}</span>
+                    <span class="nom__comments"
+                        >{{ comment.name }} {{ comment.firstName }}</span
+                    >
                     <span class="text__comments">{{ comment.text }}</span>
                 </div>
                 <div v-if="isDeletable" @click.prevent="deleteComment()">
@@ -75,7 +63,6 @@ export default {
             comment: "",
             nom: "",
             prenom: "",
-
             newContent: "",
             showComments: false,
             user: {},
@@ -90,14 +77,8 @@ export default {
         },
     },
     computed: {
-        isEditable() {
-            if (this.postData.user_id === this.$store.state.user.user.id) {
-                return true;
-            }
-            return false;
-        },
         isDeletable() {
-            if (this.$store.state.user.user.admin === 1) {
+            if (this.$store.state.user.admin === 1) {
                 return true;
             }
             if (this.postData.user_id === this.$store.state.user.user.id) {
@@ -107,10 +88,29 @@ export default {
         },
     },
     methods: {
+        async processComments(comments) {
+            const finalComments = [];
+            for (const comment of comments) {
+                const user = await instance.get(
+                    `/api/auth/users/id/${comment.user_id}`
+                );
+                finalComments.push({
+                    ...comment,
+                    name: user.data.nom,
+                    firstName: user.data.prenom,
+                });
+            }
+            return finalComments;
+        },
         updateComment() {
             axios
                 .get("http://localhost:3000/comments/")
-                .then((reponse) => (this.comments = reponse.data));
+                .then(
+                    async (response) =>
+                        (this.comments = await this.processComments(
+                            response.data
+                        ))
+                );
         },
         async createComment() {
             instance.post("/comments/", {
@@ -118,8 +118,10 @@ export default {
                 user_id: this.$store.state.user.user.id,
                 posts_id: this.postData.id,
             });
-            await this.$store.dispatch("getAllComments");
-            this.comments = this.$store.state.comments;
+            await this.$store.dispatch("getAllComments", this.postData.id);
+            this.comments = await this.processComments(
+                this.$store.state.comments
+            );
         },
         async updatePost() {
             await instance.put(`/posts/${this.postData.id}`),
@@ -152,13 +154,14 @@ export default {
         const user = await instance.get(
             `/api/auth/users/id/${this.postData.user_id}`
         );
-
         this.nom = user.data.nom;
         this.prenom = user.data.prenom;
 
-        this.comments = (
+        const comments = (
             await instance.get(`/comments/postid/${this.postData.id}`)
         ).data;
+
+        this.comments = await this.processComments(comments);
     },
 };
 </script>

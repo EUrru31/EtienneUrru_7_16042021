@@ -31,25 +31,26 @@ exports.create = (req, res) => {
 // Retrieve all comments from the database.
 exports.findAll = (req, res) => {
     Comment.getAll((err, data) => {
-        if (err)
+        if (err) {
             res.status(500).send({
                 message:
                     err.message ||
                     "Some error occurred while retrieving comments.",
             });
-        else res.send(data);
+        } else res.send(data);
     });
 };
 
 exports.findByPostId = (req, res) => {
     Comment.findByPostId(req.params.postId, (err, data) => {
-        if (err)
+        if (err) {
+            console.log(err);
             res.status(500).send({
                 message:
                     err.message ||
                     "Some error occurred while retrieving comments.",
             });
-        else res.send(data);
+        } else res.send(data);
     });
 };
 

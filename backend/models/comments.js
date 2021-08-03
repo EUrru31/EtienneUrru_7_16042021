@@ -29,7 +29,6 @@ Comment.findById = (commentId, result) => {
         }
 
         if (res.length) {
-            console.log("found comment: ", res[0]);
             result(null, res[0]);
             return;
         }
@@ -48,15 +47,7 @@ Comment.findByPostId = (postId, result) => {
                 result(err, null);
                 return;
             }
-
-            if (res.length) {
-                console.log("found comment: ", res);
-                result(null, res);
-                return;
-            }
-
-            // not found comment with the id
-            result({ kind: "not_found" }, null);
+            result(null, res);
         }
     );
 };
@@ -69,7 +60,6 @@ Comment.getAll = (result) => {
             return;
         }
 
-        console.log("comments: ", res);
         result(null, res);
     });
 };

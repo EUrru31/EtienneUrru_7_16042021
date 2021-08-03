@@ -46,7 +46,6 @@ Post.getAll = (result) => {
             return;
         }
 
-        console.log("posts: ", res);
         result(null, res);
     });
 };
@@ -68,7 +67,6 @@ Post.updateById = (id, text, result) => {
                 return;
             }
 
-            console.log("updated post: ", { id: id, ...post });
             result(null, { id: id, ...post });
         }
     );
@@ -101,7 +99,6 @@ Post.removeAll = (result) => {
             return;
         }
 
-        console.log(`deleted ${res.affectedRows} posts`);
         result(null, res);
     });
 };

@@ -104,7 +104,6 @@ const store = createStore({
             });
         },
         getUserInfos: ({ userId }) => {
-            console.log("eee", userId);
             instance
                 .get(`/api/auth/users/${userId}`, userId)
                 .then(function(response) {
@@ -176,7 +175,6 @@ const store = createStore({
             });
         },
         createComment: ({ commit }, commentInfos) => {
-            console.log(commentInfos);
             commit("setStatus", "loading");
             return new Promise((resolve, reject) => {
                 commit;
@@ -196,11 +194,12 @@ const store = createStore({
                     });
             });
         },
-        getAllComments: ({ commit }, posts) => {
+        getAllComments: ({ commit }, postId) => {
             return new Promise((resolve, reject) => {
-                commit;
+                // commit;
+
                 instance
-                    .get(`/comments/postId/${this.postData.id}`, posts.post)
+                    .get(`/comments/postId/${postId}`)
                     .then(function(response) {
                         commit("fillComments", response.data);
                         resolve(response);

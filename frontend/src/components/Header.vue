@@ -35,7 +35,6 @@ export default {
         async logout() {
             await this.$store.dispatch("logout");
             this.$router.push("/");
-            console.log(this.$store.state.user.user);
         },
     },
 };

@@ -49,19 +49,6 @@ export default {
         await this.$store.dispatch("getAllPosts");
     },
     methods: {
-        // uploadImage(event) {
-        //     const URL = "";
-
-        //     let data = new FormData();
-        //     data.append("name", "my-picture");
-        //     data.append("file", event.target.files[0]);
-
-        //     let config = { header: { "Content-Type": "image/png" } };
-
-        //     axios.put(URL, data, config).then((response) => {
-        //         console.log("image upload response > ", response);
-        //     });
-        // },
         updatePost() {
             axios
                 .get("http://localhost:3000/posts/")
@@ -87,7 +74,6 @@ export default {
         async logout() {
             await this.$store.dispatch("logout");
             this.$router.push("/");
-            console.log(this.$store.state.user.user);
         },
     },
     computed: {

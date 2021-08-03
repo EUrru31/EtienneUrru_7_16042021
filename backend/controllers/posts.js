@@ -121,7 +121,7 @@ exports.like = async (req, res, next) => {
     const post = await Post.findOne({
         _id: req.params.id,
     });
-    console.log(req.body);
+
     if (like === 1) {
         await likePost(post, userId);
     }
