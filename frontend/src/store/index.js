@@ -196,7 +196,7 @@ const store = createStore({
         },
         getAllComments: ({ commit }, postId) => {
             return new Promise((resolve, reject) => {
-                // commit;
+                commit;
 
                 instance
                     .get(`/comments/postId/${postId}`)

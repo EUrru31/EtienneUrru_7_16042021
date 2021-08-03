@@ -11,6 +11,7 @@ const routes = [
         component: Login,
         meta: {
             title: "Connexion",
+            description: "Page de connexion réseau social Groupomania",
         },
     },
 
@@ -20,6 +21,7 @@ const routes = [
         component: NotFound,
         meta: {
             title: "404 Not Found",
+            description: "Page non trouvé réseau social Groupomania",
         },
     },
     {
@@ -28,6 +30,7 @@ const routes = [
         component: Profile,
         meta: {
             title: "Profile",
+            description: "Page de profil utilisateur réseau social Groupomania",
         },
     },
     {
@@ -36,6 +39,7 @@ const routes = [
         component: Home,
         meta: {
             title: "Home",
+            description: "Page d'acceuil réseau social Groupomania",
         },
     },
 ];
